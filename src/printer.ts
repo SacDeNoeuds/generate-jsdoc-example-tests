@@ -1,7 +1,7 @@
 import * as path from 'node:path'
 import * as prettier from "prettier"
 import * as ts from "typescript"
-import type { GenerateOptions } from "./app"
+import type { GenerateOptions } from "./app.js"
 
 export async function print(
   ast: ts.Node,

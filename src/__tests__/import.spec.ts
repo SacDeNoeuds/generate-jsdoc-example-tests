@@ -1,9 +1,9 @@
 import { strict as assert } from "assert"
 import * as ts from "typescript"
 import { test } from 'vitest'
-import { mergeImports, splitImport } from "../import"
-import { print } from "../printer"
-import { createVirtualSource } from "./helper"
+import { mergeImports, splitImport } from "../import.js"
+import { print } from "../printer.js"
+import { createVirtualSource } from "./helper.js"
 
 test("split imports", async () => {
   const source = createVirtualSource({

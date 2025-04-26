@@ -2,10 +2,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "Node18",
     "declaration": true,
     "jsx": "preserve",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

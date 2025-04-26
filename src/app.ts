@@ -1,10 +1,10 @@
 import { readFileSync, writeFileSync } from "fs"
 import * as path from "path"
 import * as ts from "typescript"
-import { wrapTestFunction } from "./funcwrapper"
-import { mergeImports, splitImport } from "./import"
-import { collectExampleCodes, extractComments, parseTSDoc } from "./parser"
-import { print } from "./printer"
+import { wrapTestFunction } from "./funcwrapper.js"
+import { mergeImports, splitImport } from "./import.js"
+import { collectExampleCodes, extractComments, parseTSDoc } from "./parser.js"
+import { print } from "./printer.js"
 
 export interface GenerateOptions {
   /** @default "test" */

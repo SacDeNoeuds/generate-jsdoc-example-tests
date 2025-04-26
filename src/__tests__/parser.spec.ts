@@ -2,8 +2,8 @@ import * as tsdoc from "@microsoft/tsdoc"
 import { strict as assert } from "assert"
 import * as ts from "typescript"
 import { test } from 'vitest'
-import { collectExampleCodes, extractComments, parseTSDoc } from "../parser"
-import { createVirtualSource } from "./helper"
+import { collectExampleCodes, extractComments, parseTSDoc } from "../parser.js"
+import { createVirtualSource } from "./helper.js"
 
 test("extractComments single case", () => {
   const source = createVirtualSource({

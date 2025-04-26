@@ -1,9 +1,9 @@
 import { strict as assert } from "assert"
 import { test } from 'vitest'
-import { wrapTestFunction } from "../funcwrapper"
-import { splitImport } from "../import"
-import { print } from "../printer"
-import { createVirtualSource } from "./helper"
+import { wrapTestFunction } from "../funcwrapper.js"
+import { splitImport } from "../import.js"
+import { print } from "../printer.js"
+import { createVirtualSource } from "./helper.js"
 
 test("print ast", async () => {
   const source = createVirtualSource({

@@ -1,5 +1,5 @@
 import * as ts from "typescript"
-import type { GenerateOptions } from './app'
+import type { GenerateOptions } from './app.js'
 
 export function wrapTestFunction(
   name: string,
