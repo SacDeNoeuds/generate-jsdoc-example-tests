@@ -95,17 +95,17 @@ function getJSDocCommentRanges(node: ts.Node, text: string): ts.CommentRange[] {
 }
 
 export function parseTSDoc(comment: IFoundComment): tsdoc.DocComment {
-  const exampleCaseName = new tsdoc.TSDocTagDefinition({
-    tagName: "@exampleCaseName",
+  const exampleName = new tsdoc.TSDocTagDefinition({
+    tagName: "@exampleName",
     syntaxKind: tsdoc.TSDocTagSyntaxKind.InlineTag,
   })
   const ignoreCase = new tsdoc.TSDocTagDefinition({
-    tagName: "@untested",
+    tagName: "@skipTest",
     syntaxKind: tsdoc.TSDocTagSyntaxKind.InlineTag,
   })
 
   const config = new tsdoc.TSDocConfiguration()
-  config.addTagDefinitions([exampleCaseName, ignoreCase])
+  config.addTagDefinitions([exampleName, ignoreCase])
 
   const tsdocParser: tsdoc.TSDocParser = new tsdoc.TSDocParser(config)
 
@@ -136,11 +136,11 @@ export function collectExampleCodes(
     let name: string = ""
     let skip = false
     kindFilter(node, tsdoc.DocNodeKind.InlineTag, (inlineNode) => {
-      if (inlineNode.tagNameWithUpperCase === "@UNTESTED") {
+      if (inlineNode.tagNameWithUpperCase === "@SKIPTEST") {
         skip = true
         return false
       }
-      if (inlineNode.tagNameWithUpperCase === "@EXAMPLECASENAME") {
+      if (inlineNode.tagNameWithUpperCase === "@EXAMPLENAME") {
         name = inlineNode.tagContent
       }
       return true

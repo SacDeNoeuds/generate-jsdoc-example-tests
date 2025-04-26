@@ -14,7 +14,7 @@
  * ```
  *
  * @example
- * {@exampleCaseName customTag}
+ * {@exampleName customTag}
  * ```
  * import * as assert from "assert";
  * import { sum } from "./sample";
@@ -36,7 +36,7 @@ export function sum(a: number, b: number) {
  * demo
  *
  * @example
- * {@exampleCaseName custom name here}
+ * {@exampleName custom name here}
  *
  * ```
  * import * as assert from "assert";
@@ -66,7 +66,7 @@ export function sub(a: number, b: number) {
 export class Duck {
   /**
    * @example
-   * {@exampleCaseName class method example}
+   * {@exampleName class method example}
    *
    * ```
    * import * as assert from "assert";

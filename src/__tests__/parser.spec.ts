@@ -190,7 +190,7 @@ test("customTags", () => {
  * Test function
  *
  * @example
- * {@exampleCaseName customtagTest}
+ * {@exampleName customtagTest}
  * \`\`\` 
  * import { test1 } from "test-mod"
  * test()
