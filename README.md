@@ -24,11 +24,7 @@ npm i -D generate-jsdoc-example-tests
 
 ### CLI
 
-`gen-jet`:
-- gen = generate
-- j = jsdoc
-- e = example
-- t = tests
+`gen-jet`: gen = `generate` + j = `jsdoc` + e = `example` + t = `tests`.
 
 ```sh
 $ npx gen-jet --help
