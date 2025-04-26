@@ -2,7 +2,7 @@
 
 import * as assert from "assert";
 import { sum, sub, Duck } from "./sample";
-test("/Users/akito/workspace/tsdoc-testify/examples/sample.ts_0", () => {
+test("./examples/sample.ts_0", () => {
   assert.equal(sum(2, 1), 3);
 });
 test("customTag", () => {
@@ -11,7 +11,7 @@ test("customTag", () => {
 test("custom name here", () => {
   assert.equal(sub(2, 1), 1);
 });
-test("/Users/akito/workspace/tsdoc-testify/examples/sample.ts_1", () => {
+test("./examples/sample.ts_1", () => {
   assert.equal(sub(4, 5), -1);
 });
 test("class method example", () => {

@@ -62,8 +62,8 @@ export async function generate({ filePath }) {
       (acc, { source, exampleSource, name }) => {
         const { imports, body } = splitImport(exampleSource);
 
-        const funcName =
-          name !== "" ? name : `${source.fileName}_${acc.counter++}`;
+        const fileName = path.relative(process.cwd(), source.fileName)
+        const funcName = name || `./${fileName}_${acc.counter++}`;
 
         const testBody = wrapTestFunction(funcName, body);
         return {
