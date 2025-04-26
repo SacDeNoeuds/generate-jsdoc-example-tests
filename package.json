@@ -1,14 +1,14 @@
 {
-  "name": "jsdoc-example-tester",
+  "name": "generate-jsdoc-example-tests",
   "version": "0.1.0",
   "main": "./lib/app.js",
   "types": "./lib/app.d.ts",
   "type": "module",
   "bin": {
-    "jsdoc-example-tester": "./lib/cli.js"
+    "gen-jet": "./lib/cli.js"
   },
   "license": "Apache-2.0",
-  "repository": "SacDeNoeuds/jsdoc-example-tester",
+  "repository": "SacDeNoeuds/generate-jsdoc-example-tests",
   "author": {
     "name": "SacDeNoeuds",
     "email": "sacdenoeuds.dev@gmail.com"
