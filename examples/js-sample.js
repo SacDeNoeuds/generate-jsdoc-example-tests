@@ -83,12 +83,15 @@ export class Duck {
 
   /**
    * @example
-   * {@ignoreExample}
    * ```
    * // below code not appear on tests.
    * duck.ignore()
    * ```
-   *
+   * @example {@untested}
+   * ```
+   * // below code not appear on tests.
+   * assert.equal(duck.ignore())
+   * ```
    */
   ignore() {
     return "quack"
