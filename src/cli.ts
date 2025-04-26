@@ -54,4 +54,5 @@ cli
     }
   })
 
+cli.help()
 cli.parse()
