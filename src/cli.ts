@@ -10,8 +10,7 @@ const currentFilePath = fileURLToPath(import.meta.url)
 const packageJsonPath = path.resolve(path.dirname(currentFilePath), '../package.json')
 const pkg = JSON.parse(readFileSync(packageJsonPath, 'utf-8'))
 
-const cli = cac(pkg.name)
-// gen-jet
+const cli = cac('gen-jet')
 
 cli
   .version(pkg.version)
@@ -38,8 +37,7 @@ cli
       cli.outputHelp()
       process.exit(1)
     }
-    console.debug('Generating tests with:')
-    console.debug({ pattern, options })
+    console.debug('Generating tests from JSDoc @example')
     try {
       const unfilteredFiles = await glob(pattern)
       const files = unfilteredFiles.filter((fileName) => !fileName.endsWith(options.testFileExtension))
