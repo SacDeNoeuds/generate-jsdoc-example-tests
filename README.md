@@ -67,10 +67,10 @@ By default, generate testcode file in the same directory as original file with `
 
 import * as assert from "assert";
 import { sum, sub, Duck } from "./sample";
-test("/Users/akito/workspace/tsdoc-testify/examples/sample.ts_1", () => {
+test("./examples/sample.ts_1", () => {
   assert.equal(sub(2, 1), 1);
 });
-test("/Users/akito/workspace/tsdoc-testify/examples/sample.ts_2", () => {
+test("./examples/sample.ts_2", () => {
   assert.equal(sub(4, 5), -1);
 });
 ```
@@ -109,8 +109,8 @@ Add `.doctest.ts` pattern to `testMatch` directive of `jest` config.
 $ jest
 
  PASS  examples/sample.doctest.ts
-  ✓ /Users/akito/workspace/tsdoc-testify/examples/sample.ts_0 (2ms)
-  ✓ /Users/akito/workspace/tsdoc-testify/examples/sample.ts_1
+  ✓ ./examples/sample.ts_0 (2ms)
+  ✓ ./examples/sample.ts_1
 
 Test Suites: 1 passed, 1 total
 Tests:       2 passed, 2 total
@@ -159,9 +159,9 @@ test("custom name here", () => {
 });
 ```
 
-### @ignoreExample
+### @untested
 
-If you want to skip generation for specific `@example` case, you can use `@ignoreExample` inline tag.
+If you want to skip generation for specific `@example` case, you can use `@untested` inline tag.
 
 ````ts
 /**
@@ -175,7 +175,7 @@ If you want to skip generation for specific `@example` case, you can use `@ignor
  * ```
  *
  * @example
- * {@ignoreExample}
+ * {@untested}
  *
  * ```
  * import * as assert from "assert";
@@ -198,7 +198,7 @@ then:
 import * as assert from "assert";
 import { sum, sub, Duck } from "./sample";
 
-test("/Users/akito/workspace/tsdoc-testify/examples/sample.ts_2", () => {
+test("./examples/sample.ts_2", () => {
   assert.equal(sub(3, 2), 1);
 });
 ```
