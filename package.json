@@ -16,6 +16,7 @@
   "scripts": {
     "test": "vitest src/__tests__",
     "build": "npm run clean && tsc",
+    "prepack": "npm run build",
     "clean": "rimraf ./lib/*",
     "try": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js './examples/*'"
   },
