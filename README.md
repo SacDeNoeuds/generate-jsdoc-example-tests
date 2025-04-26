@@ -1,6 +1,6 @@
 # generate-jsdoc-example-tests
 
-Generate test files from your JSDoc @example comments. See [vitest](#vitest) and [jest](#jest) cookbooks.
+Generate test files from your JSDoc @example comments. See [vitest](#vitest) cookbook and adapt it to your test runner 😊.
 
 **It offers you the certainty that your JSDoc @example are valid.**
 
@@ -105,7 +105,7 @@ it('myFn', () => {
 
 ### Which tests are included ?
 
-There is a `includeExampleContaining`, defaulted to `['expect', 'assert']`.
+There is a `includeExampleContaining` option, defaulted to `['expect', 'assert']`.
 Any `@example` content containing `expect` or `assert` will have a generated test.
 
 If you want to omit a test, you can omit it with `@skipTest`:
@@ -126,7 +126,7 @@ If you want to omit a test, you can omit it with `@skipTest`:
 export const myFn = () => true
 ```
 
-### I use JS
+### Does it generate JS or TS files?
 
 The test files are generated according to their source file:
 - if the source file is JS, the generated test file will be JS.
@@ -138,8 +138,7 @@ Use the `@exampleName` inline tag:
 
 ```ts
 /**
- * @example
- * {@exampleName sum 4 and 5}
+ * @example {@exampleName sum 4 and 5}
  * ```
  * import * as assert from "assert";
  * import { sum } from "./sample";
@@ -150,7 +149,7 @@ Use the `@exampleName` inline tag:
 export function sum() {…}
 ```
 
-Generates:
+Generated test file:
 
 ```ts
 import * as assert from "assert";
@@ -165,7 +164,7 @@ test("sum 4 and 5", () => {
 
 I based this work upon Akito Ito's awesome [tsdoc-testify](https://github.com/akito0107/tsdoc-testify) and pushed it further with options and test runner interop.
 
-** Many MANY thanks to you [Akito Ito](https://github.com/akito0107) 🙏🙏**
+**Many MANY thanks to you [Akito Ito](https://github.com/akito0107) 🙏🙏**
 
 ## License
 

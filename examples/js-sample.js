@@ -35,8 +35,7 @@ export function sum(a, b) {
  * @remarks
  * demo
  *
- * @example
- * {@exampleName custom name here}
+ * @example {@exampleName custom name here}
  *
  * ```
  * import * as assert from "assert";
