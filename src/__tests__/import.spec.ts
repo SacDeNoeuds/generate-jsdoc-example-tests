@@ -21,7 +21,7 @@ b();
   const ast = ts.factory.updateSourceFile(res, body);
 
   assert.equal(
-    await print(ast),
+    await print(ast, { testFunctionName: 'test' }),
     `a();
 b();
 `
@@ -34,7 +34,7 @@ b();
   );
 
   assert.equal(
-    await print(importAST),
+    await print(importAST, { testFunctionName: 'test' }),
     `import { a, b } from "moduleA";
 `
   );
@@ -52,7 +52,7 @@ async function mergeImportsRunner(src: string, expect: string) {
     importSource,
     results as Array<ts.Statement>
   );
-  assert.equal(await print(importAST), expect);
+  assert.equal(await print(importAST, { testFunctionName: 'test' }), expect);
 }
 
 test("merge imports", async () => {

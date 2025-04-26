@@ -1,7 +1,8 @@
 import { format } from "prettier"
 import * as ts from "typescript"
+import type { GenerateOptions } from './app'
 
-export async function print(ast: ts.Node): Promise<string> {
+export async function print(ast: ts.Node, options: Pick<GenerateOptions, 'testFunctionName'>): Promise<string> {
   const resultFile = ts.createSourceFile(
     "result.ts",
     "",
@@ -15,7 +16,7 @@ export async function print(ast: ts.Node): Promise<string> {
   })
   const result = printer
     .printNode(ts.EmitHint.Unspecified, ast, resultFile)
-    .replaceAll('\ntest(', '\n\ntest(')
+    .replaceAll(`\n${options.testFunctionName}(`, `\n\n${options.testFunctionName}(`)
 
   const formatted = await format(result, {
     parser: "typescript",

@@ -16,11 +16,20 @@ b();
 
   const { body } = splitImport(source);
 
-  const ast = wrapTestFunction("aaa", body);
+  const ast = wrapTestFunction("aaa", body, { testFunctionName: 'test' });
 
   assert.equal(
-    await print(ast),
+    await print(ast, { testFunctionName: 'test' }),
     `test("aaa", () => {
+  a();
+  b();
+});
+`
+  );
+
+  assert.equal(
+    await print(ast, { testFunctionName: 'it' }),
+    `it("aaa", () => {
   a();
   b();
 });

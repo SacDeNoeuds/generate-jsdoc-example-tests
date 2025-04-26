@@ -30,7 +30,7 @@ const command = makeCommand({
         const files = await glob.glob(params.fileMatch.value)
         await Promise.all(files.map(async (f) => {
           const filePath = path.resolve(process.cwd(), f)
-          await generate({ filePath })
+          await generate(filePath)
         }))
       } catch (error) {
         console.error(error)
@@ -39,7 +39,7 @@ const command = makeCommand({
 
     if (params.filepath.value) {
       const filePath = path.resolve(process.cwd(), params.filepath.value)
-      await generate({ filePath })
+      await generate(filePath)
     }
   },
 })

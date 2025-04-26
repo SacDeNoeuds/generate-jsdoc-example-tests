@@ -1,10 +1,12 @@
 import * as ts from "typescript"
+import type { GenerateOptions } from './app'
 
 export function wrapTestFunction(
   name: string,
-  body: ts.Statement[]
+  body: ts.Statement[],
+  options: Pick<GenerateOptions, 'testFunctionName'>
 ): ts.Statement {
-  const functionName = ts.factory.createIdentifier("test");
+  const functionName = ts.factory.createIdentifier(options.testFunctionName);
   const caseName = ts.factory.createStringLiteral(name);
   const blockExpr = ts.factory.createBlock(body);
 
