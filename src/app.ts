@@ -1,6 +1,5 @@
-import { readFileSync } from "fs"
-import { glob, writeFile } from 'fs/promises'
-import * as path from "path"
+import { glob, readFile, writeFile } from 'node:fs/promises'
+import * as path from "node:path"
 import * as ts from "typescript"
 import { wrapTestFunction } from "./funcwrapper.js"
 import { mergeImports, splitImport } from "./import.js"
@@ -83,7 +82,7 @@ async function generateTestFile(
 
   const source = ts.createSourceFile(
     filePath,
-    readFileSync(filePath).toString(),
+    await readFile(filePath, 'utf-8'),
     ts.ScriptTarget.Latest,
     false,
     kind,
