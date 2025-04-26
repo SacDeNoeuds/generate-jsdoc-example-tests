@@ -141,6 +141,8 @@ async function generateTestFile(
 
   const mergedImports = mergeImports(imports)
 
+  if (testBody.length === 0) return // do not generate an empty test file.
+
   const ast = ts.factory.updateSourceFile(
     ts.createSourceFile(
       filePath + options.testFileExtension,
