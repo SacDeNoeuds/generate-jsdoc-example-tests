@@ -32,7 +32,7 @@ const defaultOptions: GenerateOptions = {
  * ```ts
  * import { generate } from "generate-jsdoc-example-tests"
  *
- * generate("./src/*")
+ * generate("./src/**")
  *   .then(() => console.info('tests generated'))
  *   .catch(console.error)
  * ```
@@ -40,7 +40,7 @@ const defaultOptions: GenerateOptions = {
  * ```ts
  * import { generate } from "generate-jsdoc-example-tests"
  *
- * generate("./src/*", {
+ * generate("./src/**", {
  *   testFunctionName: 'it',
  *   header: 'import { it, expect } from "vitest"',
  *   testFileExtension: '.generated.test.ts'
@@ -66,7 +66,6 @@ export async function generate(
       console.log("currently unsupported tsx ", filePath)
       return
     default:
-      console.log("unknown file extension ", filePath)
       return
   }
 
