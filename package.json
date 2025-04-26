@@ -17,8 +17,7 @@
     "test": "vitest src/__tests__",
     "build": "npm run clean && tsc",
     "clean": "rimraf ./lib/*",
-    "try:filepath": "npm run build && node ./lib/cli.js --filepath ./examples/sample.ts",
-    "try:fileMatch": "npm run build && node ./lib/cli.js --fileMatch ./examples/sample"
+    "try": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js './examples/*'"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
@@ -30,7 +29,7 @@
   },
   "dependencies": {
     "@microsoft/tsdoc": "^0.15.1",
-    "catacli": "^0.1.3",
+    "cac": "^6.7.14",
     "glob": "^11.0.2",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
