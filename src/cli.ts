@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 import { cac } from 'cac'
-import { glob } from "glob"
 import { readFileSync } from 'node:fs'
 import * as path from "node:path"
 import { fileURLToPath } from 'node:url'
-import { generate } from "./app.js"
+import { generateTests } from "./app.js"
 
 const currentFilePath = fileURLToPath(import.meta.url)
 const packageJsonPath = path.resolve(path.dirname(currentFilePath), '../package.json')
@@ -15,7 +14,7 @@ const cli = cac('gen-jet')
 cli
   .version(pkg.version)
   .command('[pattern]', 'Generate tests from JSDoc @example')
-  .usage("npx gen-jet './src/**/*.ts'")
+  .usage("npx gen-jet './src/**'")
   .option(
     '--test-function-name [name]',
     'Name of test function (default: "test")',
@@ -23,8 +22,8 @@ cli
   )
   .option(
     '--test-file-extension [ext]',
-    'Test file extension (default: ".example.test.ts")',
-    { default: '.example.test.ts' }
+    'Test file extension (default: ".example.test")',
+    { default: '.example.test' }
   )
   .option(
     '--header [text]',
@@ -39,12 +38,7 @@ cli
     }
     console.debug('Generating tests from JSDoc @example')
     try {
-      const unfilteredFiles = await glob(pattern)
-      const files = unfilteredFiles.filter((fileName) => !fileName.endsWith(options.testFileExtension))
-      await Promise.all(files.map(async (f) => {
-        const filePath = path.resolve(process.cwd(), f)
-        await generate(filePath, options)
-      }))
+      await generateTests(pattern, options)
     } catch (error) {
       console.error(error)
     }

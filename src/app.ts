@@ -1,4 +1,5 @@
-import { readFileSync, writeFileSync } from "fs"
+import { readFileSync } from "fs"
+import { glob, writeFile } from 'fs/promises'
 import * as path from "path"
 import * as ts from "typescript"
 import { wrapTestFunction } from "./funcwrapper.js"
@@ -9,7 +10,7 @@ import { print } from "./printer.js"
 export interface GenerateOptions {
   /** @default "test" */
   testFunctionName: string
-  /** @default ".example.test.ts" */
+  /** @default ".example.test" */
   testFileExtension: string
   /**
    * This is where you can adapt the generated code to your favorite test runner:
@@ -22,7 +23,7 @@ export interface GenerateOptions {
 }
 const defaultOptions: GenerateOptions = {
   testFunctionName: "test",
-  testFileExtension: ".example.test.ts",
+  testFileExtension: ".example.test",
   header: "",
 }
 
@@ -43,17 +44,25 @@ const defaultOptions: GenerateOptions = {
  * generate("./src/**", {
  *   testFunctionName: 'it',
  *   header: 'import { it, expect } from "vitest"',
- *   testFileExtension: '.generated.test.ts'
+ *   testFileExtension: '.generated.test'
  * })
  *   .then(() => console.info('tests generated'))
  *   .catch(console.error)
  * ```
  */
-export async function generate(
-  filePath: string,
-  providedOptions?: Partial<GenerateOptions>,
-) {
+export async function generateTests(pattern, providedOptions?: Partial<GenerateOptions>) {
   const options = { ...defaultOptions, ...providedOptions }
+  for await (const fileName of glob(pattern)) {
+    if (fileName.includes(options.testFileExtension)) continue
+    await generateTestFile(fileName, options)
+  }
+}
+
+
+async function generateTestFile(
+  filePath: string,
+  options: GenerateOptions,
+) {
   const { ext, name, dir } = path.parse(filePath)
 
   let kind
@@ -141,8 +150,8 @@ export async function generate(
   const header = [banner, options.header].filter(Boolean).join("\n")
   const printed = await print(ast, options)
 
-  writeFileSync(
-    `${dir}/${name}${options.testFileExtension}`,
+  await writeFile(
+    `${dir}/${name}${options.testFileExtension}${ext}`,
     `${header}\n${printed}`,
   )
 }
