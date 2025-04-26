@@ -1,14 +1,14 @@
-import * as ts from "typescript";
+import * as ts from "typescript"
 
 export function wrapTestFunction(
   name: string,
   body: ts.Statement[]
 ): ts.Statement {
-  const functionName = ts.createIdentifier("test");
-  const caseName = ts.createStringLiteral(name);
-  const blockExpr = ts.createBlock(body);
+  const functionName = ts.factory.createIdentifier("test");
+  const caseName = ts.factory.createStringLiteral(name);
+  const blockExpr = ts.factory.createBlock(body);
 
-  const testBody = ts.createArrowFunction(
+  const testBody = ts.factory.createArrowFunction(
     undefined,
     undefined,
     undefined,
@@ -17,10 +17,7 @@ export function wrapTestFunction(
     blockExpr
   );
 
-  const testCaseAST = ts.createCall(functionName, undefined, [
-    caseName,
-    testBody
-  ]);
+  const testCaseAST = ts.factory.createCallExpression(functionName, undefined, [caseName, testBody]);
 
-  return ts.createExpressionStatement(testCaseAST);
+  return ts.factory.createExpressionStatement(testCaseAST);
 }

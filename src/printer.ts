@@ -1,7 +1,7 @@
-import { format } from "prettier";
-import * as ts from "typescript";
+import { format } from "prettier"
+import * as ts from "typescript"
 
-export function print(ast: ts.Node): string {
+export function print(ast: ts.Node): Promise<string> {
   const resultFile = ts.createSourceFile(
     "result.ts",
     "",

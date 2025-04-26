@@ -1,10 +1,11 @@
-import { createVirtualSource } from "./helper";
-import * as ts from "typescript";
-import { strict as assert } from "assert";
-import { mergeImports, splitImport } from "../import";
-import { print } from "../printer";
+import { strict as assert } from "assert"
+import * as ts from "typescript"
+import { test } from 'vitest'
+import { mergeImports, splitImport } from "../import"
+import { print } from "../printer"
+import { createVirtualSource } from "./helper"
 
-test("split imports", () => {
+test("split imports", async () => {
   const source = createVirtualSource({
     src: `
 import { a, b } from "moduleA";
@@ -17,29 +18,29 @@ b();
   const { imports, body } = splitImport(source);
 
   const res = createVirtualSource({ src: "", fileName: "b" });
-  const ast = ts.updateSourceFileNode(res, body);
+  const ast = ts.factory.updateSourceFile(res, body);
 
   assert.equal(
-    print(ast),
+    await print(ast),
     `a();
 b();
 `
   );
 
   const importSource = createVirtualSource({ src: "", fileName: "forassert" });
-  const importAST = ts.updateSourceFileNode(
+  const importAST = ts.factory.updateSourceFile(
     importSource,
     imports as Array<ts.Statement>
   );
 
   assert.equal(
-    print(importAST),
+    await print(importAST),
     `import { a, b } from "moduleA";
 `
   );
 });
 
-function mergeImportsRunner(src: string, expect: string) {
+async function mergeImportsRunner(src: string, expect: string) {
   const source = createVirtualSource({
     src,
     fileName: "virtual.ts"
@@ -47,15 +48,15 @@ function mergeImportsRunner(src: string, expect: string) {
   const { imports } = splitImport(source);
   const results = mergeImports(imports);
   const importSource = createVirtualSource({ src: "", fileName: "forassert" });
-  const importAST = ts.updateSourceFileNode(
+  const importAST = ts.factory.updateSourceFile(
     importSource,
     results as Array<ts.Statement>
   );
-  assert.equal(print(importAST), expect);
+  assert.equal(await print(importAST), expect);
 }
 
-test("merge imports", () => {
-  mergeImportsRunner(
+test("merge imports", async () => {
+  await mergeImportsRunner(
     `import { a, b } from "moduleA";
 import { b, c } from "moduleA";`,
     `import { a, b, c } from "moduleA";
@@ -63,8 +64,8 @@ import { b, c } from "moduleA";`,
   );
 });
 
-test("merge imports (multi module)", () => {
-  mergeImportsRunner(
+test("merge imports (multi module)", async () => {
+  await mergeImportsRunner(
     `import { a, b } from "moduleA";
 import { b, c } from "moduleA";
 import { d, e } from "moduleB";
@@ -75,8 +76,8 @@ import { d, e } from "moduleB";
   );
 });
 
-test("as alias imports", () => {
-  mergeImportsRunner(
+test("as alias imports", async () => {
+  await mergeImportsRunner(
     `import { a as alias, b as balias } from "moduleA";
 import { b as balias, c } from "moduleA";,
 `,
@@ -85,8 +86,8 @@ import { b as balias, c } from "moduleA";,
   );
 });
 
-test("named imports + identifier", () => {
-  mergeImportsRunner(
+test("named imports + identifier", async () => {
+  await mergeImportsRunner(
     `import React, { useCallback } from "react";
 import React, { useState, useCallback } from "react";
 `,
@@ -95,8 +96,8 @@ import React, { useState, useCallback } from "react";
   );
 });
 
-test("default imports + named imports", () => {
-  mergeImportsRunner(
+test("default imports + named imports", async () => {
+  await mergeImportsRunner(
     `import * as ts from "typescript";
 import { createIdentifier, Node } from "typescript";
 `,

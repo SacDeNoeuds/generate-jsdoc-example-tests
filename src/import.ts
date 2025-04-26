@@ -1,4 +1,4 @@
-import * as ts from "typescript";
+import * as ts from "typescript"
 
 export function splitImport(
   source: ts.SourceFile
@@ -73,7 +73,7 @@ export function mergeImports(imports: ts.ImportDeclaration[]): ts.Node[] {
             ?.filter(e => e)
             .map(s => {
               if (s.propertyName) {
-                return `${s.propertyName.escapedText} as ${s.name.escapedText}`;
+                return `${s.propertyName.text} as ${s.name.escapedText}`;
               }
               return s.name.escapedText;
             });
@@ -88,22 +88,22 @@ export function mergeImports(imports: ts.ImportDeclaration[]): ts.Node[] {
 
       const namedImportSpecifiers = names.bindings.map(n => {
         // TOOD: passing propertyName with correct way
-        return ts.createImportSpecifier(undefined, ts.createIdentifier(n));
+        return ts.factory.createImportSpecifier(undefined, undefined, ts.factory.createIdentifier(n));
       });
       const name =
         names.idents.length !== 0
-          ? ts.createIdentifier(names.idents[0])
+          ? ts.factory.createIdentifier(names.idents[0])
           : undefined;
 
-      return ts.createImportDeclaration(
-        undefined,
-        undefined,
-        ts.createImportClause(
-          name,
-          ts.createNamedImports(namedImportSpecifiers)
+      return ts.factory.createImportDeclaration(
+        undefined, // modifiers (like 'declare' modifier)
+        ts.factory.createImportClause(
+            false, // isTypeOnly (new required parameter)
+            name,  // default import (name)
+            ts.factory.createNamedImports(namedImportSpecifiers)
         ),
         r[0].moduleSpecifier
-      );
+    );
     }
   );
 
