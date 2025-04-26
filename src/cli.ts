@@ -26,9 +26,9 @@ cli
     { default: '.example.test' }
   )
   .option(
-    '--header [text]',
-    'Header text to include in test files, ie: `import { test } from "vitest"`',
-    { default: '' }
+    '--header [texts]',
+    'Header texts to include in test files, ie: --header \'import { test } from "vitest" --header \'import …\'',
+    { type: [String], default: [] }
   )
   .option(
     "--include-example-containing <strings>",
@@ -43,7 +43,12 @@ cli
     }
     console.debug('Generating tests from JSDoc @example')
     try {
-      await generateTests(pattern, options)
+      await generateTests(pattern, {
+        headers: options.header,
+        includeExampleContaining: options.includeExampleContaining,
+        testFileExtension: options.testFileExtension,
+        testFunctionName: options.testFunctionName
+      })
     } catch (error) {
       console.error(error)
     }
