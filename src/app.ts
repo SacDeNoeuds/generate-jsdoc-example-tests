@@ -98,7 +98,7 @@ async function generateTestFile(
   const foundComments = extractComments(source)
 
   if (foundComments.length === 0) {
-    console.log(`${filePath} comments not found`)
+    // console.debug(`${filePath} comments not found`)
     return
   }
 
@@ -123,11 +123,11 @@ async function generateTestFile(
       }
     })
     .reduce(
-      (acc, { source, exampleSource, name }) => {
+      (acc, { /* source, */ exampleSource, name }) => {
         const { imports, body } = splitImport(exampleSource)
 
-        const fileName = path.relative(process.cwd(), source.fileName)
-        const funcName = name || `./${fileName}_${acc.counter++}`
+        // const fileName = path.relative(process.cwd(), source.fileName)
+        const funcName = name || `Example ${++acc.counter}`
 
         const testBody = wrapTestFunction(funcName, body, options)
         return {

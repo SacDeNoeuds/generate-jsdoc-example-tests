@@ -2,7 +2,7 @@
 import * as assert from 'assert'
 import { sum, sub, Duck } from './sample'
 
-test('./examples/js-sample.js_0', () => {
+test('Example 1', () => {
   assert.equal(sum(2, 1), 3)
 })
 
@@ -14,7 +14,7 @@ test('custom name here', () => {
   assert.equal(sub(2, 1), 1)
 })
 
-test('./examples/js-sample.js_1', () => {
+test('Example 2', () => {
   assert.equal(sub(4, 5), -1)
 })
 
