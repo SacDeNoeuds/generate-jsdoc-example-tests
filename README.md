@@ -56,14 +56,10 @@ generateTests('./src/**')
   .then(() => console.info('tests generated'))
   .catch(console.error)
 
-generateTests('./src/**', {
-  testFunctionName: 'it',
-  headers: ['import { it, expect } from "vitest"'],
-  includeExampleContaining: ['expect'],
-  testFileExtension: '.generated.test', // do not provide `.ts` or `.js`
-})
+generateTests('./src/**', { ...options })
   .then(() => console.info('tests generated'))
   .catch(console.error)
+
 ```
 
 ### Vitest
