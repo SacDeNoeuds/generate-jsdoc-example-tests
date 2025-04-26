@@ -1,7 +1,7 @@
-import * as tsdoc from "@microsoft/tsdoc";
-import * as ts from "typescript";
+import * as tsdoc from "@microsoft/tsdoc"
+import * as ts from "typescript"
 
-import { isDeclarationKind, kindFilter } from "./util";
+import { isDeclarationKind, kindFilter } from "./util"
 
 export interface IFoundComment {
   compilerNode: ts.Node;

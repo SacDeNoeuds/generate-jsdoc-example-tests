@@ -1,5 +1,5 @@
 {
-  "name": "tsdoc-testify",
+  "name": "jsdoc-example-tester",
   "version": "0.0.3",
   "main": "./lib/app.js",
   "types": "./lib/app.d.ts",
@@ -16,13 +16,13 @@
     "test": "jest",
     "lint": "eslint ./src/**/*.ts",
     "fmt": "eslint --fix ./src/**/*/ts",
-    "build": "yarn run clean && tsc",
+    "build": "npm run clean && tsc",
     "clean": "rimraf ./lib/*",
-    "examplesdoc": "typedoc --out examplesdoc examples"
+    "examplesdoc": "typedoc --out examplesdoc examples",
+    "try": "npm run build && node ./lib/cli.js --filepath ./examples/sample.ts"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
-    "@types/jest": "^24.0.13",
     "@types/node": "^12.0.4",
     "@types/prettier": "^1.19.0",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
@@ -30,35 +30,8 @@
     "eslint": "^6.7.1",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "jest": "^24.8.0",
     "rimraf": "^3.0.0",
-    "ts-jest": "^24.0.2",
-    "ts-node": "^8.5.4",
-    "typedoc": "^0.15.3"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "tsconfig.json"
-      }
-    },
-    "testMatch": [
-      "**/__tests__/*.+(ts|tsx|js)",
-      "**/*.doctest.ts"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "helper.ts",
-      "/lib/"
-    ]
+    "tsx": "^4.19.3"
   },
   "dependencies": {
     "@microsoft/tsdoc": "^0.12.16",
