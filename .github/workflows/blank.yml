@@ -13,9 +13,7 @@ jobs:
       with:
         version: 13.x
     - uses: actions/checkout@v1
-    - name: yarn install
-      run: yarn install
-    - name: yarn lint
-      run: yarn lint
-    - name: yarn test
-      run: yarn test
+    - name: npm install
+      run: npm install
+    - name: npm test
+      run: npm test

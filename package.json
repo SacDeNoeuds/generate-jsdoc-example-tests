@@ -1,21 +1,19 @@
 {
   "name": "jsdoc-example-tester",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "main": "./lib/app.js",
   "types": "./lib/app.d.ts",
   "bin": {
-    "tsdoc-testify": "./lib/cli.js"
+    "jsdoc-example-tester": "./lib/cli.js"
   },
   "license": "Apache-2.0",
-  "repository": "akito0107/tsdoc-testify",
+  "repository": "SacDeNoeuds/jsdoc-example-tester",
   "author": {
-    "name": "Akito Ito",
-    "email": "akito0107@gmail.com"
+    "name": "SacDeNoeuds",
+    "email": "sacdenoeuds.dev@gmail.com"
   },
   "scripts": {
     "test": "vitest src/__tests__",
-    "lint": "eslint ./src/**/*.ts",
-    "fmt": "eslint --fix ./src/**/*/ts",
     "build": "npm run clean && tsc",
     "clean": "rimraf ./lib/*",
     "examplesdoc": "typedoc --out examplesdoc examples",
@@ -26,11 +24,6 @@
     "@types/glob": "^8.1.0",
     "@types/node": "^22.15.2",
     "@types/prettier": "^3.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.31.0",
-    "@typescript-eslint/parser": "^8.31.0",
-    "eslint": "^9.25.1",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-prettier": "^5.2.6",
     "rimraf": "^6.0.1",
     "tsx": "^4.19.3",
     "vitest": "^3.1.2"
