@@ -26,6 +26,29 @@ const defaultOptions: GenerateOptions = {
   header: "",
 }
 
+/**
+ * Generate test files from JSDoc comments.
+ * @example default
+ * ```ts
+ * import { generate } from "generate-jsdoc-example-tests"
+ *
+ * generate("./src/*")
+ *   .then(() => console.info('tests generated'))
+ *   .catch(console.error)
+ * ```
+ * @example with options for Vitest
+ * ```ts
+ * import { generate } from "generate-jsdoc-example-tests"
+ *
+ * generate("./src/*", {
+ *   testFunctionName: 'it',
+ *   header: 'import { it, expect } from "vitest"',
+ *   testFileExtension: '.generated.test.ts'
+ * })
+ *   .then(() => console.info('tests generated'))
+ *   .catch(console.error)
+ * ```
+ */
 export async function generate(
   filePath: string,
   providedOptions?: Partial<GenerateOptions>,
