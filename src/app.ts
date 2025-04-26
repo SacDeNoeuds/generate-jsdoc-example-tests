@@ -19,11 +19,17 @@ export interface GenerateOptions {
    * For vitest, use `header: "import { test, expect } from 'vitest'"`
    */
   header: string
+  /**
+   * Only generate test files for examples including one of the given strings
+   * @default ['assert', 'expect']
+   */
+  includeExampleContaining: string[];
 }
 const defaultOptions: GenerateOptions = {
   testFunctionName: "test",
   testFileExtension: ".example.test",
   header: "",
+  includeExampleContaining: ['assert', 'expect']
 }
 
 /**
@@ -43,7 +49,8 @@ const defaultOptions: GenerateOptions = {
  * generate("./src/**", {
  *   testFunctionName: 'it',
  *   header: 'import { it, expect } from "vitest"',
- *   testFileExtension: '.generated.test'
+ *   testFileExtension: '.generated.test',
+ *   includeExampleContaining: ['expect'],
  * })
  *   .then(() => console.info('tests generated'))
  *   .catch(console.error)
@@ -100,7 +107,7 @@ async function generateTestFile(
       return { docNode: parseTSDoc(f), node: f.compilerNode }
     })
     .map(({ docNode, node }) => {
-      return collectExampleCodes(node, source, docNode)
+      return collectExampleCodes(node, source, docNode, options)
     })
     .flat()
     .map((example) => {

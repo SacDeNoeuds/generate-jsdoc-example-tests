@@ -1,10 +1,11 @@
 import * as tsdoc from "@microsoft/tsdoc"
 import * as ts from "typescript"
+import { GenerateOptions } from './app.js'
 import { isDeclarationKind, kindFilter } from "./util.js"
 
 export interface IFoundComment {
-  compilerNode: ts.Node;
-  textRange: tsdoc.TextRange;
+  compilerNode: ts.Node
+  textRange: tsdoc.TextRange
 }
 
 /**
@@ -14,48 +15,48 @@ export interface IFoundComment {
  * @param source
  */
 export function extractComments(source: ts.SourceFile) {
-  const foundComments: IFoundComment[] = [];
+  const foundComments: IFoundComment[] = []
 
   function walk(node: ts.Node) {
     if (!isDeclarationKind(node.kind)) {
-      node.forEachChild(walk);
-      return false;
+      node.forEachChild(walk)
+      return false
     }
 
-    const buffer = source.getFullText();
-    const ranges = getJSDocCommentRanges(node, buffer);
+    const buffer = source.getFullText()
+    const ranges = getJSDocCommentRanges(node, buffer)
 
-    ranges.forEach(comment => {
+    ranges.forEach((comment) => {
       foundComments.push({
         compilerNode: node,
         textRange: tsdoc.TextRange.fromStringRange(
           buffer,
           comment.pos,
-          comment.end
-        )
-      });
-    });
-    node.forEachChild(walk);
-    return false;
+          comment.end,
+        ),
+      })
+    })
+    node.forEachChild(walk)
+    return false
   }
 
-  walk(source);
+  walk(source)
 
   const cs = foundComments.reduce((acc, comment) => {
     if (!acc[comment.textRange.toString()]) {
-      acc[comment.textRange.toString()] = [];
+      acc[comment.textRange.toString()] = []
     }
-    acc[comment.textRange.toString()].push(comment);
-    return acc;
-  }, {});
+    acc[comment.textRange.toString()].push(comment)
+    return acc
+  }, {})
 
   return Object.values(cs)
     .map((nodes: Array<IFoundComment>) => {
-      return nodes[0];
+      return nodes[0]
     })
     .sort((a, b) => {
-      return a.textRange.pos - b.textRange.pos;
-    });
+      return a.textRange.pos - b.textRange.pos
+    })
 }
 
 /**
@@ -68,7 +69,7 @@ export function extractComments(source: ts.SourceFile) {
  * from https://github.com/microsoft/tsdoc/blob/master/api-demo/src/advancedDemo.ts
  */
 function getJSDocCommentRanges(node: ts.Node, text: string): ts.CommentRange[] {
-  const commentRanges: ts.CommentRange[] = [];
+  const commentRanges: ts.CommentRange[] = []
 
   switch (node.kind) {
     case ts.SyntaxKind.Parameter:
@@ -77,88 +78,91 @@ function getJSDocCommentRanges(node: ts.Node, text: string): ts.CommentRange[] {
     case ts.SyntaxKind.ArrowFunction:
     case ts.SyntaxKind.ParenthesizedExpression:
     case ts.SyntaxKind.VariableStatement: // needed on our case
-      commentRanges.push(
-        ...(ts.getTrailingCommentRanges(text, node.pos) || [])
-      );
-      break;
+      commentRanges.push(...(ts.getTrailingCommentRanges(text, node.pos) || []))
+      break
   }
-  commentRanges.push(...(ts.getLeadingCommentRanges(text, node.pos) || [])); // // style comments
+  commentRanges.push(...(ts.getLeadingCommentRanges(text, node.pos) || [])) // // style comments
 
   // True if the comment starts with '/**' but not if it is '/**/'
   return commentRanges.filter(
-    comment =>
+    (comment) =>
       text.charCodeAt(comment.pos + 1) ===
         0x2a /* ts.CharacterCodes.asterisk */ &&
       text.charCodeAt(comment.pos + 2) ===
         0x2a /* ts.CharacterCodes.asterisk */ &&
-      text.charCodeAt(comment.pos + 3) !== 0x2f /* ts.CharacterCodes.slash */
-  );
+      text.charCodeAt(comment.pos + 3) !== 0x2f /* ts.CharacterCodes.slash */,
+  )
 }
 
 export function parseTSDoc(comment: IFoundComment): tsdoc.DocComment {
   const exampleCaseName = new tsdoc.TSDocTagDefinition({
     tagName: "@exampleCaseName",
-    syntaxKind: tsdoc.TSDocTagSyntaxKind.InlineTag
-  });
+    syntaxKind: tsdoc.TSDocTagSyntaxKind.InlineTag,
+  })
   const ignoreCase = new tsdoc.TSDocTagDefinition({
-    tagName: "@ignoreExample",
-    syntaxKind: tsdoc.TSDocTagSyntaxKind.InlineTag
-  });
+    tagName: "@untested",
+    syntaxKind: tsdoc.TSDocTagSyntaxKind.InlineTag,
+  })
 
-  const config = new tsdoc.TSDocConfiguration();
-  config.addTagDefinitions([exampleCaseName, ignoreCase]);
+  const config = new tsdoc.TSDocConfiguration()
+  config.addTagDefinitions([exampleCaseName, ignoreCase])
 
-  const tsdocParser: tsdoc.TSDocParser = new tsdoc.TSDocParser(config);
+  const tsdocParser: tsdoc.TSDocParser = new tsdoc.TSDocParser(config)
 
-  const parserContext = tsdocParser.parseRange(comment.textRange);
-  return parserContext.docComment;
+  const parserContext = tsdocParser.parseRange(comment.textRange)
+  return parserContext.docComment
 }
 
 export type ExampleCodeSpec = {
-  name: string;
-  code: string;
-  node: ts.Node;
-  source: ts.SourceFile;
-};
+  name: string
+  code: string
+  node: ts.Node
+  source: ts.SourceFile
+}
 
 export function collectExampleCodes(
   parent: ts.Node,
   source: ts.SourceFile,
-  docNode: tsdoc.DocComment
+  docNode: tsdoc.DocComment,
+  options: Pick<GenerateOptions, 'includeExampleContaining'>
 ): Array<ExampleCodeSpec> {
-  const specs: ExampleCodeSpec[] = [];
+  const specs: ExampleCodeSpec[] = []
 
-  kindFilter(docNode, tsdoc.DocNodeKind.Block, node => {
+  kindFilter(docNode, tsdoc.DocNodeKind.Block, (node) => {
     if (node.blockTag.tagNameWithUpperCase !== "@EXAMPLE") {
-      return;
+      return
     }
 
-    let name: string = "";
-    let skip = false;
-    kindFilter(node, tsdoc.DocNodeKind.InlineTag, inlineNode => {
-      if (inlineNode.tagNameWithUpperCase === "@IGNOREEXAMPLE") {
-        skip = true;
-        return false;
+    let name: string = ""
+    let skip = false
+    kindFilter(node, tsdoc.DocNodeKind.InlineTag, (inlineNode) => {
+      if (inlineNode.tagNameWithUpperCase === "@UNTESTED") {
+        skip = true
+        return false
       }
       if (inlineNode.tagNameWithUpperCase === "@EXAMPLECASENAME") {
-        name = inlineNode.tagContent;
+        name = inlineNode.tagContent
       }
-      return true;
-    });
-    if (skip) {
-      return true;
-    }
-    kindFilter(node, tsdoc.DocNodeKind.FencedCode, fenced => {
+      return true
+    })
+    if (skip) return true
+
+    kindFilter(node, tsdoc.DocNodeKind.FencedCode, (fenced) => {
+      const shouldInclude = options.includeExampleContaining.some((sample) => {
+        return fenced.code.includes(sample)
+      })
+      if (!shouldInclude) return false;
+
       specs.push({
         source,
         node: parent,
         code: (fenced as tsdoc.DocFencedCode).code,
-        name
-      });
-      return true;
-    });
-    return true;
-  });
+        name,
+      })
+      return true
+    })
+    return true
+  })
 
-  return specs;
+  return specs
 }

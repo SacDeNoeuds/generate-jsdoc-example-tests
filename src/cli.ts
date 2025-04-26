@@ -30,6 +30,11 @@ cli
     'Header text to include in test files, ie: `import { test } from "vitest"`',
     { default: '' }
   )
+  .option(
+    "--include-example-containing <strings>",
+    'Only generate test files for examples including one of the given strings',
+    { type: [String], default: ['assert', 'expect'] }
+  )
   .action(async (pattern, options) => {
     if (!pattern) {
       console.error('Error: Missing required glob pattern')
