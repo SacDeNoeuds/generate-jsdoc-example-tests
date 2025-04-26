@@ -61,8 +61,11 @@ export async function generate(
     case ".TS":
       kind = ts.ScriptKind.TS
       break
+    case ".JS":
+      kind = ts.ScriptKind.JS
+      break
     case ".TSX":
-      kind = ts.ScriptKind.TSX
+    case ".JSX":
       console.log("currently unsupported tsx ", filePath)
       return
     default:
