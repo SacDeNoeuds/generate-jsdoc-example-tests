@@ -13,7 +13,7 @@
     "email": "akito0107@gmail.com"
   },
   "scripts": {
-    "test": "jest",
+    "test": "vitest src/__tests__",
     "lint": "eslint ./src/**/*.ts",
     "fmt": "eslint --fix ./src/**/*/ts",
     "build": "npm run clean && tsc",

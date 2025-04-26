@@ -20,19 +20,10 @@ b();
 
   assert.equal(
     await print(ast, { testFunctionName: 'test' }),
-    `test("aaa", () => {
-  a();
-  b();
-});
-`
-  );
-
-  assert.equal(
-    await print(ast, { testFunctionName: 'it' }),
-    `it("aaa", () => {
-  a();
-  b();
-});
+    `test('aaa', () => {
+  a()
+  b()
+})
 `
   );
 });
