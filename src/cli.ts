@@ -27,7 +27,7 @@ cli
   )
   .option(
     '--header [texts]',
-    'Header texts to include in test files, ie: --header \'import { test } from "vitest" --header \'import …\'',
+    'Header texts to include in test files, ie: --header \'import { test } from "vitest"\' --header \'import …\'',
     { type: [String], default: [] }
   )
   .option(
