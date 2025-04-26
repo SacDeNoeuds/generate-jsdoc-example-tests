@@ -18,6 +18,9 @@ I do not aim at writing a test runner though, this is a whole area of expertise 
 
 ```sh
 npm i -D generate-jsdoc-example-tests
+
+# or directly via npx without installation:
+npx generate-jsdoc-example-tests
 ```
 
 ## Usage
