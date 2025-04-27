@@ -15,6 +15,14 @@ I do not aim at writing a test runner though, this is a whole area of expertise 
 
 **I aim at integrating with test runners.**
 
+<details>
+<summary>Prior art</summary>
+
+- [tsdoc-testify](https://github.com/akito0107/tsdoc-testify) – see [Thanks](#thanks)
+- [jsdoc-spec](https://github.com/AT-290690/jsdoc-spec) – both an example parser and the test runner, without the test runner goodies.
+
+</details>
+
 ## How it works
 
 You document your functions and methods, for coworkers or your future self, you get tests for free:
@@ -33,7 +41,7 @@ export function sum(a: number, b: number) {
 ```
 
 <details>
-<summary> What you see in VSCode when hovering the <code>sum</code> functions </summary>
+<summary> What you see in VSCode when hovering the <code>sum</code> function </summary>
 
 ![image](https://github.com/user-attachments/assets/a1f61d56-2dc4-4185-93a4-db763b2bad56)
 
