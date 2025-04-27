@@ -178,8 +178,7 @@ If you want to omit a test, you can omit it with `@skipTest`:
  * import { myFn } from './my-fn'
  * expect(myFn()).toBe(true)
  * ```
- * @example this one is omitted
- * {@skipTest}
+ * @example this one is omitted {@skipTest}
  * ```ts
  * import { myFn } from './my-fn'
  * expect(myFn()).toBe(false)

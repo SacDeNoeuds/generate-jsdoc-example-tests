@@ -63,13 +63,11 @@ export class Duck {
   }
 
   /**
-   * @example
-   * {@ignoreExample}
+   * @example This test is skipped {@skipTest}
    * ```
    * // below code not appear on tests.
    * duck.ignore()
    * ```
-   *
    */
   ignore() {
     return "quack"
