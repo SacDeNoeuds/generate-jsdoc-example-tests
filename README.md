@@ -33,9 +33,9 @@ export function sum(a: number, b: number) {
 ```
 
 <details>
-<summary> What you see in VSCode </summary>
+<summary> What you see in VSCode when hovering the <code>sum</code> functions </summary>
 
-
+![image](https://github.com/user-attachments/assets/a1f61d56-2dc4-4185-93a4-db763b2bad56)
 
 </details>
 
