@@ -3,10 +3,6 @@ import * as assert from 'assert'
 import { sum, sub, Duck } from './sample'
 
 test('Example 1', () => {
-  assert.equal(sum(2, 1), 3)
-})
-
-test('customTag', () => {
   assert.equal(sum(4, 5), 9)
 })
 

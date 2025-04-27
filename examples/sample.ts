@@ -1,29 +1,10 @@
 /**
- * sum function
- *
- * @remarks
- * demo
- *
  * @example
- *
  * ```
- * import * as assert from "assert";
- * import { sum } from "./sample";
- *
- * assert.equal(sum(2, 1), 3);
- * ```
- *
- * @example
- * {@exampleName customTag}
- * ```
- * import * as assert from "assert";
  * import { sum } from "./sample";
  *
  * assert.equal(sum(4, 5), 9);
  * ```
- *
- * @param a
- * @param b
  */
 export function sum(a: number, b: number) {
   return a + b;
