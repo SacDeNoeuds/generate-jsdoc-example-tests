@@ -75,6 +75,19 @@ npx generate-jsdoc-example-tests
 `gen-jet`: gen = `generate` + j = `jsdoc` + e = `example` + t = `tests`.
 
 ```sh
+$ npx gen-jet 'src/**'
+
+# Usage with options:
+$ npx gen-jet 'src/**' \
+  --test-file-extension '.example.test' \
+  --test-function-name 'it' \
+  --header 'import { it, expect } from "vitest | jest | whatever"'
+  --header 'import { myGlobalImport } from "~/src/index"'
+  --include-example-containing expect,assert,assertStrict
+```
+
+Full CLI usage:
+```sh
 $ npx gen-jet --help
 Usage:
   $ gen-jet npx gen-jet './src/**'
@@ -87,8 +100,8 @@ Options:
   --test-file-extension [ext]             Test file extension (default: ".example.test") (default: .example.test)
   --header [texts]                        Header texts to include in test files, ie: --header 'import { test } from "vitest"' --header 'import …' (default: )
   --include-example-containing <strings>  Only generate test files for examples including one of the given strings (default: assert,expect)
-  -v, --version                           Display version number 
-  -h, --help                              Display this message 
+  -v, --version                           Display version number
+  -h, --help                              Display this message
 ```
 
 ### Programmatic API
@@ -131,10 +144,10 @@ Then you can write examples like this:
  * @example
  * ```ts
  * import { myFn } from './my-fn'
- * 
+ *
  * expect(myFn()).toBe(true)
  * ```
- */ 
+ */
 export const myFn = () => true
 ```
 
