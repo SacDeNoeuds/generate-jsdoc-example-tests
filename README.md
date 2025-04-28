@@ -1,14 +1,15 @@
 # generate-jsdoc-example-tests
 
-Generate test files from your JSDoc @example comments. See [vitest](#vitest) cookbook and adapt it to your test runner 😊.
+Generate test files from your JSDoc @example comments. See configuration details in the [vitest](#vitest) cookbook and adapt it to your favorite test runner 😊.
 
 **It offers you the certainty that your JSDoc @example are valid.**
 
 ## Why
 
-JSDoc is an awesome documentation tool with great IDE support providing intellisense on-demand. Pure love.
+I love functions documented by example using JSDoc `@example` tag because it gives me context, ideas and usage hints.
+But maintaining that becomes particularly hard because examples grow stale in glimpse.
+Then came this idea: What if we could _test_ those examples?
 
-In my opinion, the best way to document code is **by example**. Yet, as code evolves we have to change the source code, then the test code, and it becomes terribly easy to forget to update the examples.
 **This library bridges this gap: you write your function, document it by example, you get the test for free.**
 
 I do not aim at writing a test runner though, this is a whole area of expertise and lots of people do an incredible job at it, offering goodies like coverage and various test reporters.
