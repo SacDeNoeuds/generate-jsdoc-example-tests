@@ -7,6 +7,7 @@
   "bin": {
     "gen-jet": "./lib/cli.js"
   },
+  "files": ["lib/**/*"],
   "license": "Apache-2.0",
   "repository": "https://github.com/SacDeNoeuds/generate-jsdoc-example-tests",
   "author": {
@@ -17,6 +18,7 @@
     "test": "vitest src/__tests__",
     "build": "npm run clean && tsc",
     "prepack": "npm run build",
+    "postbuild": "rimraf ./lib/__tests__",
     "clean": "rimraf ./lib/*",
     "try": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js './examples/*'"
   },
