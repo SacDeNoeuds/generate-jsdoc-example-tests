@@ -88,9 +88,9 @@ $ npx gen-jet 'src/**' \
 
 Full CLI usage:
 ```sh
-$ npx gen-jet --help
+$ gen-jet --help
 Usage:
-  $ gen-jet npx gen-jet './src/**'
+  $ gen-jet './src/**'
 
 Commands:
   [pattern]  Generate tests from JSDoc @example
