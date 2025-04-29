@@ -18,9 +18,9 @@ So here comes… generate-jsdoc-example-tests 🎉.
 <details>
 <summary>Prior art</summary>
 
-- [tsdoc-testify](https://github.com/akito0107/tsdoc-testify) – see [Thanks](#thanks)
+- [tsdoc-testify](https://github.com/akito0107/tsdoc-testify) – see [Thanks](#thanks). Very old and unmaintained project, an excellent base to build this one 😁.
 - [jsdoc-spec](https://github.com/AT-290690/jsdoc-spec) – both an example parser _and_ the test runner, without the test runner goodies.
-- [ts-docs](https://ts-docs.github.io/ts-docs/pages/Guides/Documentation%20Tests.html) – same, on the test side, it is both an example parser _and_ a test runner, without the test runner goodies.
+- [ts-docs](https://ts-docs.github.io/ts-docs/pages/Guides/Documentation%20Tests.html) – same, on the test side, it is both an example parser _and_ a test runner, without the test runner goodies. Stuck to TypeScript v4.
 
 </details>
 
@@ -344,3 +344,5 @@ Please visit the [contributing](./CONTRIBUTING.md) section for a detailed guide 
 > - Tweet about it
 > - Refer this project in your project’s readme
 > - Mention the project at local meetups and tell your friends/colleagues
+
+<img src="https://sacdenoeuds.goatcounter.com/count">
