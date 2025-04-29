@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcing generate-jsdoc-example-tests v0.1.0</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-tomorrow.min.css"
+        integrity="sha512-kSwGoyIkfz4+hMo5jkJngSByil9jxJPKbweYec/UgS+S1EgE45qm4Gea7Ks2oxQ7qiYyyZRn66A9df2lMtjIsw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+        integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-typescript.min.js"
+        integrity="sha512-Hb168WC7SiCJ1GlGPHBb5ol0ResC6n5wu+5V8FTT5inC5ajLgBSm2hpQBvDq1YG2KqXr7UanlfQqRy6VEb1/kQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-bash.min.js"
+        integrity="sha512-35RBtvuCKWANuRid6RXP2gYm4D5RMieVL/xbp6KiMXlIqgNrI7XRUh9HurE8lKHW4aRpC0TZU3ZfqG8qmQ35zA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <main>
+        <h1>Introducing generate-jsdoc-example-tests v0.1.0&nbsp;🎉</h1>
+        <section>
+            <h2>Intro – the why, the how and the ugly</h2>
+            <p>
+                I love documenting my functions using JSDoc examples – imo example are the best doc one can have! – but
+                I
+                was tired of
+                my doc getting obsolete. And tests don't provide in-IDE doc, so I figured: why not reconcile the 2 ?
+                Write JSDoc examples, and generate tests from them…
+            <ol>
+                <li>To make sure examples never go obsolete 😍.</li>
+                <li>… And to test my stuff like I would anyway, you sillies 🤓</li>
+            </ol>
+            </p>
+            <p>So here comes… <b>generate-jsdoc-example-tests</b> 🎉.</p>
+        </section>
+
+        <section>
+            <h2>Demo</h2>
+            <p>Let’s take a date format function, for instance.</p>
+            <p>1. Add the JSDoc example in the source code</p>
+            <pre><code class="language-typescript">// src/date-formatter.ts
+/**
+ * @example
+ * ```ts
+ * import { formatDateYear } from './date-formatter'
+ *
+ * expect(formatDateYear(new Date('2026-01-01')).toBe('2026')
+ * ```
+ */
+export function formatDateYear(date: Date): string {…}</code></pre>
+            <p>2. Generate the test using <code>npx gen-jet</code></p>
+            <pre><code class="language-bash">npx gen-jet 'src/**' \
+    --header 'import { expect, test } from "vitest"' \
+    --test-file-extension '.example.test' # do not provide the `.ts` or `.js`</code></pre>
+
+            <p>3. The generated test:</p>
+            <pre><code class="language-typescript">// src/date-formatter.example.test.ts
+// DO NOT EDIT …
+import { expect, test } from 'vitest' // the provided header
+import { formatDateYear } from './date-formatter'
+
+test('Example 1', () => {
+  expect(formatDateYear(new Date('2026-01-01'))).toBe('2026')
+})</code></pre>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>What can you document with that ?</h2>
+            <p>
+            <ul>
+                <li>Libraries – in conjunction with <a href="https://tsdoc.org/" target="_blank"
+                        rel="noopener noreferrer">TSDoc</a> or <a href="https://typedoc.org/" target="_blank"
+                        rel="noopener noreferrer">TypeDoc</a> for instance.</li>
+                <li>Small project domain code.</li>
+            </ul>
+            </p>
+
+            <p>For now it supports functions, methods, interfaces/types & constants.</p>
+            <p>It's still an embryo and contributions are more than welcome ! If anyone is interested, please <a
+                    href="https://github.com/SacDeNoeuds/generate-jsdoc-example-tests/blob/main/CONTRIBUTING.md"
+                    target="_blank" rel="noopener noreferrer">do get in touch</a> 😊 (I rarely bite).
+            </p>
+            <p><b>Bonus</b>: if you have a prettier config, it uses it to format the generated test files.</p>
+
+            <blockquote class="alert info">
+                <h4>Information</h4>
+                <p>
+                    By design, the generated tests are test-runner agnostic: to adapt to your test runner, you can
+                    override the test function and add imports using the <code>headers</code> options.
+                </p>
+            </blockquote>
+        </section>
+
+        <section>
+            <h2>How I use it in my projects</h2>
+
+            <p>
+                I git-ignore the generated test files, and generate my test files in the CI right before executing the
+                tests
+                (and after my lint !).
+            </p>
+            <p>
+                I added an NPM script both for the CI and because I still use the commands locally for debugging
+                purposes.
+            </p>
+        </section>
+    </main>
+</body>
+
+</html>
