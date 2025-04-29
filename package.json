@@ -1,20 +1,31 @@
 {
   "name": "generate-jsdoc-example-tests",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./lib/app.js",
   "types": "./lib/app.d.ts",
   "type": "module",
   "bin": {
     "gen-jet": "./lib/cli.js"
   },
-  "files": ["lib/**/*"],
+  "files": [
+    "lib/**/*"
+  ],
   "license": "Apache-2.0",
   "repository": "https://github.com/SacDeNoeuds/generate-jsdoc-example-tests",
   "author": {
     "name": "SacDeNoeuds",
     "email": "sacdenoeuds.dev@gmail.com"
   },
-  "keywords": ["documentation", "generate", "jsdoc", "example", "test", "vitest", "jest", "tsdoc"],
+  "keywords": [
+    "documentation",
+    "generate",
+    "jsdoc",
+    "example",
+    "test",
+    "vitest",
+    "jest",
+    "tsdoc"
+  ],
   "scripts": {
     "test": "vitest src/__tests__",
     "build": "npm run clean && tsc",
