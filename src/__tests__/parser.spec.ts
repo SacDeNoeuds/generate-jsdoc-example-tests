@@ -154,8 +154,7 @@ export function test() {
  *
  * \`\`\` 
  * import { test2 } from "test-mod"
- * test2()
- * test2()
+ * assert.equal(test2(), true)
  * \`\`\`
  */
 export function test2() {
@@ -178,8 +177,7 @@ export function test2() {
   assert.equal(
     examples[0].code,
     `import { test2 } from "test-mod"
-test2()
-test2()
+assert.equal(test2(), true)
 `,
   )
 })
@@ -191,10 +189,9 @@ test("customTags", () => {
  *
  * @example
  * {@exampleName customtagTest}
- * \`\`\` 
+ * \`\`\`ts
  * import { test1 } from "test-mod"
- * test()
- * test()
+ * assert.equal(test(), true)
  * \`\`\`
  */
 export function test() {
@@ -217,8 +214,7 @@ export function test() {
   assert.equal(
     examples[0].code,
     `import { test1 } from "test-mod"
-test()
-test()
+assert.equal(test(), true)
 `,
   )
 })
