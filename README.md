@@ -344,5 +344,3 @@ Please visit the [contributing](./CONTRIBUTING.md) section for a detailed guide 
 > - Tweet about it
 > - Refer this project in your project’s readme
 > - Mention the project at local meetups and tell your friends/colleagues
-
-![](https://sacdenoeuds.goatcounter.com/count)
