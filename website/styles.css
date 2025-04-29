@@ -4,7 +4,8 @@
   /* palette */
   --black: #000;
   --white: #fff;
-  --dark-grey: #333;
+  --dark-white: #fefbf8;
+  --dark-grey: #212121;
   --medium-grey: #777;
   --light-grey: #999;
   --dark-blue: rgb(76, 76, 207);
@@ -13,15 +14,15 @@
   --radius: 0.5rem;
 
   /* light theme */
-  --color-background: var(--white);
+  --color-background: var(--dark-white);
   --color-text: var(--dark-grey);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     /* dark theme */
-    --color-background: var(--black);
-    --color-text: var(--white);
+    --color-background: var(--dark-grey);
+    --color-text: var(--dark-white);
   }
 }
 
