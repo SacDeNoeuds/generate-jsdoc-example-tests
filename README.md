@@ -203,7 +203,7 @@ test('Example 1', () => {
 
 ### CLI
 
-`gen-jet`: gen = `generate` ; jet = **J**sdoc + **E**xample + **T**ests.
+`gen-jet`: gen = **gen**erate ; jet = **J**sdoc + **E**xample + **T**ests.
 
 ```sh
 $ npx gen-jet 'src/**'
