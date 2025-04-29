@@ -7,9 +7,11 @@ Generate test files from your JSDoc @example comments. See configuration details
 ## Why
 
 I love documenting my functions using JSDoc examples – imo example are the best doc one can have! – but I was tired of my doc getting obsolete. And tests don't provide in-IDE doc, so I figured: why not reconcile the 2 ?
+
 Write JSDoc examples, and generate tests from them…
 1. To make sure examples never go obsolete 😍.
 2. … And to test my stuff like I would anyway, you sillies 🤓
+
 So here comes… generate-jsdoc-example-tests 🎉.
 
 <details>
@@ -201,26 +203,6 @@ test('Example 1', () => {
 
 </details>
 
-```ts
-/**
- * @example
- * ```
- * import { sum } from "./sample";
- * assert.equal(sum(4, 5), 9);
- * ```
- */
-export function sum(a: number, b: number) {
-  return a + b;
-}
-```
-
-<details>
-<summary> What you see in VSCode when hovering the <code>sum</code> function </summary>
-
-![image](https://github.com/user-attachments/assets/a1f61d56-2dc4-4185-93a4-db763b2bad56)
-
-</details>
-
 ## Usage
 
 ### CLI
@@ -235,7 +217,7 @@ $ npx gen-jet 'src/**' \
   --test-file-extension '.example.test' \
   --test-function-name 'it' \
   --header 'import { it, expect } from "vitest | jest | whatever"'
-  --header 'import { myGlobalImport } from "~/src/index"'
+  --header 'import { myGlobalImport } from "~/some-global-stuff"'
   --include-example-containing expect,assert,assertStrict
 
 # For a full CLI usage, checkout
