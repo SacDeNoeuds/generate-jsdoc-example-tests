@@ -97,3 +97,10 @@ pre {
   gap: 0.5rem;
   margin: 0;
 }
+
+hr {
+  border: none;
+  background: var(--color-text);
+  block-size: 0.125rem;
+  inline-size: 100%;
+}
