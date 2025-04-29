@@ -73,7 +73,6 @@ test('Example 1', () => {
 ```
 
 </details>
-
 <details>
 <summary>Documenting a class</summary>
 
@@ -114,7 +113,6 @@ test('Example 1', () => {
 ```
 
 </details>
-
 <details>
 <summary>Documenting a constant</summary>
 
@@ -156,7 +154,6 @@ test('Example 1', () => {
 ```
 
 </details>
-
 <details>
 <summary>Documenting an interface / a type</summary>
 
