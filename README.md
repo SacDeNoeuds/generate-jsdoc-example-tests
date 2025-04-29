@@ -6,15 +6,11 @@ Generate test files from your JSDoc @example comments. See configuration details
 
 ## Why
 
-I love functions documented by example using JSDoc `@example` tag because it gives me context, ideas and usage hints.
-But maintaining that becomes particularly hard because examples grow stale in glimpse.
-Then came this idea: What if we could _test_ those examples?
-
-**This library bridges this gap: you write your function, document it by example, you get the test for free.**
-
-I do not aim at writing a test runner though, this is a whole area of expertise and lots of people do an incredible job at it, offering goodies like coverage and various test reporters.
-
-**I aim at integrating with test runners.**
+I love documenting my functions using JSDoc examples – imo example are the best doc one can have! – but I was tired of my doc getting obsolete. And tests don't provide in-IDE doc, so I figured: why not reconcile the 2 ?
+Write JSDoc examples, and generate tests from them…
+1. To make sure examples never go obsolete 😍.
+2. … And to test my stuff like I would anyway, you sillies 🤓
+So here comes… generate-jsdoc-example-tests 🎉.
 
 <details>
 <summary>Prior art</summary>
@@ -25,9 +21,185 @@ I do not aim at writing a test runner though, this is a whole area of expertise 
 
 </details>
 
-## How it works
 
-You document your functions and methods, for coworkers or your future self, you get tests for free:
+## Installation
+
+```sh
+npm i -D generate-jsdoc-example-tests
+
+# or directly via npx without installation:
+npx generate-jsdoc-example-tests
+```
+
+
+## Demo
+
+You document your functions, methods, constants & classes, for coworkers or your future self, you get tests for free:
+
+<details>
+<summary>Documenting a function</summary>
+
+```ts
+// src/date-formatter.ts
+/**
+ * @example
+ * ```ts
+ * import { formatDateYear } from './date-formatter'
+ * 
+ * expect(formatDateYear(new Date('2026-01-01')).toBe('2026')
+ * ```
+ */
+export function formatDateYear(date: Date) {…}
+```
+
+Generate tests:
+```sh
+npx gen-jet 'src/**' \
+  --header 'import { expect, test } from "vitest"' \
+  --test-file-extension '.example.test' # do not provide the `.ts` or `.js`
+```
+
+Generated test:
+```ts
+// src/date-formatter.example.test.ts
+// DO NOT EDIT …
+import { expect, test } from 'vitest' // the provided header
+import { formatDateYear } from './date-formatter'
+
+test('Example 1', () => {
+  expect(formatDateYear(new Date('2026-01-01'))).toBe('2026')
+})
+```
+
+</details>
+
+<details>
+<summary>Documenting a class</summary>
+
+```ts
+// src/date-formatter.ts
+class DateFormatter {
+  /**
+   * @example
+   * ```ts
+   * import { DateFormatter } from './date-formatter'
+   * 
+   * const formatter = new DateFormatter()
+   * expect(formatter.formatYear(new Date('2026-01-01')).toBe('2026')
+   * ```
+   */
+  formatYear(date: Date) {…}
+}
+```
+
+Generate tests:
+```sh
+npx gen-jet 'src/**' \
+  --header 'import { expect, test } from "vitest"' \
+  --test-file-extension '.example.test' # do not provide the `.ts` or `.js`
+```
+
+Generated test:
+```ts
+// src/date-formatter.example.test.ts
+// DO NOT EDIT …
+import { expect, test } from 'vitest' // the provided header
+import { DateFormatter } from './date-formatter'
+
+test('Example 1', () => {
+  const formatter = new DateFormatter()
+  expect(formatter.formatYear(new Date('2026-01-01'))).toBe('2026')
+})
+```
+
+</details>
+
+<details>
+<summary>Documenting a constant</summary>
+
+```ts
+// src/date-formatter.ts
+/**
+ * @example
+ * ```ts
+ * import { formatDate, yearFormat } from './date-formatter'
+ * 
+ * const date = new Date('2026-01-01')
+ * expect(formatDate(date, yearFormat)).toBe('2026')
+ * ```
+ */
+export const yearFormat = 'YYYY'
+
+export const formatDate = (date: Date, format: string): string => {…}
+```
+
+Generate tests:
+```sh
+npx gen-jet 'src/**' \
+  --header 'import { expect, test } from "vitest"' \
+  --test-file-extension '.example.test' # do not provide the `.ts` or `.js`
+```
+
+Generated test:
+```ts
+// src/date-formatter.example.test.ts
+// DO NOT EDIT …
+import { expect, test } from 'vitest' // the provided header
+import { formatDate, yearFormat } from './date-formatter'
+
+
+test('Example 1', () => {
+  const date = new Date('2026-01-01')
+  expect(formatDate(date, yearFormat)).toBe('2026')
+})
+```
+
+</details>
+
+<details>
+<summary>Documenting an interface / a type</summary>
+
+```ts
+// src/date-formatter.ts
+interface DateFormatter {
+  /**
+   * @example
+   * ```ts
+   * import { makeDateFormatter } from './date-formatter'
+   * 
+   * const formatter = makeDateFormatter()
+   * expect(formatter.formatYear(new Date('2026-01-01')).toBe('2026')
+   * ```
+   */
+  formatYear(date: Date): string
+}
+
+export const makeDateFormatter = (): DateFormatter => ({
+  formatYear: () => {…},
+})
+```
+
+Generate tests:
+```sh
+npx gen-jet 'src/**' \
+  --header 'import { expect, test } from "vitest"' \
+  --test-file-extension '.example.test' # do not provide the `.ts` or `.js`
+```
+
+Generated test:
+```ts
+// src/date-formatter.example.test.ts
+// DO NOT EDIT …
+import { expect, test } from 'vitest' // the provided header
+import { makeDateFormatter } from './date-formatter'
+
+test('Example 1', () => {
+  const formatter = makeDateFormatter()
+  expect(formatter.formatYear(new Date('2026-01-01'))).toBe('2026')
+})
+```
+
+</details>
 
 ```ts
 /**
@@ -49,27 +221,6 @@ export function sum(a: number, b: number) {
 
 </details>
 
-The library generates the following test file:
-
-```ts
-// DO NOT EDIT: Code generated by "generate-jsdoc-example-tests".
-import * as assert from 'assert'
-import { sum } from './sample'
-
-test('Example 1', () => {
-  assert.equal(sum(4, 5), 9)
-})
-```
-
-## Installation
-
-```sh
-npm i -D generate-jsdoc-example-tests
-
-# or directly via npx without installation:
-npx generate-jsdoc-example-tests
-```
-
 ## Usage
 
 ### CLI
@@ -86,36 +237,23 @@ $ npx gen-jet 'src/**' \
   --header 'import { it, expect } from "vitest | jest | whatever"'
   --header 'import { myGlobalImport } from "~/src/index"'
   --include-example-containing expect,assert,assertStrict
-```
 
-Full CLI usage:
-```sh
+# For a full CLI usage, checkout
 $ gen-jet --help
-Usage:
-  $ gen-jet './src/**'
-
-Commands:
-  [pattern]  Generate tests from JSDoc @example
-
-Options:
-  --test-function-name [name]             Name of test function (default: "test") (default: test)
-  --test-file-extension [ext]             Test file extension (default: ".example.test") (default: .example.test)
-  --header [texts]                        Header texts to include in test files, ie: --header 'import { test } from "vitest"' --header 'import …' (default: )
-  --include-example-containing <strings>  Only generate test files for examples including one of the given strings (default: assert,expect)
-  -v, --version                           Display version number
-  -h, --help                              Display this message
 ```
 
 ### Programmatic API
 
 ```ts
-import { generateTests } from 'generate-jsdoc-example-tests'
+import { generateTests, type GenerateOptions } from 'generate-jsdoc-example-tests'
 
 generateTests('./src/**')
   .then(() => console.info('tests generated'))
   .catch(console.error)
 
-generateTests('./src/**', { ...options })
+// Options are typed:
+const myOptions: GenerateOptions = { … }
+generateTests('./src/**', myOptions)
   .then(() => console.info('tests generated'))
   .catch(console.error)
 
@@ -131,40 +269,18 @@ generateTests('./src/**')
   .catch(console.error)
 
 generateTests('./src/**', {
-  testFunctionName: 'it',
+  testFileExtension: '.generated.test', // default is '.example.test' ; do not provide `.ts` or `.js` !
+  testFunctionName: 'it', // default is 'test'
   headers: ['import { it, expect } from "vitest"'],
-  includeExampleContaining: ['expect'],
-  testFileExtension: '.generated.test', // do not provide `.ts` or `.js`
+
+  // keywords the JSDoc @example body must contain to be included in the generated tests.
+  includeExampleContaining: ['expect'], // default is ['assert', 'expect']
 })
   .then(() => console.info('tests generated'))
   .catch(console.error)
 ```
 
-Then you can write examples like this:
-```ts
-/**
- * @example
- * ```ts
- * import { myFn } from './my-fn'
- *
- * expect(myFn()).toBe(true)
- * ```
- */
-export const myFn = () => true
-```
-
-It will the generate the following file:
-
-```ts
-import { it, expect } from 'vitest'
-import { myFn } from './my-fn'
-
-it('myFn', () => {
-  expect(myFn()).toBe(true)
-})
-```
-
-## Options
+## FAQ
 
 ### Which tests are included ?
 
@@ -174,12 +290,16 @@ Any `@example` content containing `expect` or `assert` will have a generated tes
 If you want to omit a test, you can omit it with `@skipTest`:
 ```ts
 /**
- * @example This one is included
+ * @example This one is included because it contains `expect`
  * ```ts
  * import { myFn } from './my-fn'
  * expect(myFn()).toBe(true)
  * ```
- * @example this one is omitted {@skipTest}
+ * @example This is omitted because there is no `expect` or `assert`
+ * ```ts
+ * myFn('toto') // invalid arg.
+ * ```
+ * @example this one is explicitly omitted {@skipTest}
  * ```ts
  * import { myFn } from './my-fn'
  * expect(myFn()).toBe(false)
@@ -202,7 +322,7 @@ Use the `@exampleName` inline tag:
 /**
  * @example {@exampleName sum 4 and 5}
  * ```
- * import * as assert from "assert";
+ * import assert from "assert";
  * import { sum } from "./sample";
  *
  * assert.equal(sum(4, 5), 9);
@@ -214,7 +334,7 @@ export function sum() {…}
 Generated test file:
 
 ```ts
-import * as assert from "assert";
+import assert from "assert";
 import { sum } from "./sample";
 
 test("sum 4 and 5", () => {

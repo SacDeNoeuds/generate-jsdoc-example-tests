@@ -20,7 +20,7 @@ export interface GenerateOptions {
    */
   headers: string[]
   /**
-   * Only generate test files for examples including one of the given strings
+   * Keywords the example body must contain to be included in the generated tests.
    * @default ['assert', 'expect']
    */
   includeExampleContaining: string[];
