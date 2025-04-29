@@ -20,7 +20,7 @@
     "prepack": "npm run build",
     "postbuild": "rimraf ./lib/__tests__",
     "clean": "rimraf ./lib/*",
-    "try": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js './examples/*'"
+    "debug": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js './examples/*'"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
