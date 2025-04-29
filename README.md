@@ -237,7 +237,7 @@ This project is licensed under the Apache License 2.0 License - see the [LICENSE
 ## Contributing
 
 First of all, thank you deeply if you want to participate.
-Please visit the [contributing](https://github.com/SacDeNoeuds/generate-jsdoc-example-tests/blob/main/CONTRIBUTING.md) section for a detailed guide (getting started, roadmap).
+Please visit the [contributing](./CONTRIBUTING.md) section for a detailed guide (getting started, roadmap).
 
 > If you like the project but don't have time to contribute, all good ! There are other ways to support the project and show your appreciation, which we would also be very happy about:
 > - Star the project
