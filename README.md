@@ -6,8 +6,7 @@ Generate test files from your JSDoc @example comments. See configuration details
 
 ## Why
 
-I love documenting my functions using JSDoc examples – imo example are the best doc one can have! – but I was tired of my doc getting obsolete. And tests don't provide in-IDE doc, so I figured: why not reconcile the 2 ?
-
+I love documenting my functions using JSDoc examples – imo example are the best doc one can have! – but I was tired of my doc getting obsolete. And tests don't provide in-IDE doc, so I figured: why not reconcile the 2 ?<br>
 Write JSDoc examples, and generate tests from them…
 1. To make sure examples never go obsolete 😍.
 2. … And to test my stuff like I would anyway, you sillies 🤓
