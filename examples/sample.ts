@@ -7,7 +7,7 @@
  * ```
  */
 export function sum(a: number, b: number) {
-  return a + b;
+  return a + b
 }
 
 /**
@@ -34,11 +34,9 @@ export function sum(a: number, b: number) {
  *
  * assert.equal(sub(4, 5), -1);
  * ```
- * @param a
- * @param b
  */
 export function sub(a: number, b: number) {
-  return a - b;
+  return a - b
 }
 
 /**
@@ -72,4 +70,18 @@ export class Duck {
   ignore() {
     return "quack"
   }
+}
+
+export interface Formatter {
+  /**
+   * @example
+   * ```ts
+   * import { formatter } from "./sample";
+   * assert.equal(formatter.formatYear(2022), '2022')
+   * ```
+   */
+  formatYear: (year: number) => string
+}
+export const formatter: Formatter = {
+  formatYear: (year: number) => `${year}`,
 }
