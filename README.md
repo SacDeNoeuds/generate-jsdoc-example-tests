@@ -229,8 +229,8 @@ generateTests('./src/**')
   .then(() => console.info('tests generated'))
   .catch(console.error)
 
-// Options are typed:
 const myOptions: GenerateOptions = { … }
+
 generateTests('./src/**', myOptions)
   .then(() => console.info('tests generated'))
   .catch(console.error)
