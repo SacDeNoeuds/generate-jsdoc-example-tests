@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-tomorrow.min.css"
         integrity="sha512-kSwGoyIkfz4+hMo5jkJngSByil9jxJPKbweYec/UgS+S1EgE45qm4Gea7Ks2oxQ7qiYyyZRn66A9df2lMtjIsw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script data-goatcounter="https://sacdenoeuds.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+    <script data-goatcounter="https://sacdenoeuds.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
     <link rel="icon" type="image/svg+xml" href="./tada.svg" />
 </head>
@@ -71,34 +70,48 @@ import { formatDateYear } from './date-formatter'
 test('Example 1', () => {
   expect(formatDateYear(new Date('2026-01-01'))).toBe('2026')
 })</code></pre>
+
         </section>
+
+        <hr>
+
+        <blockquote class="info alert">
+            <p>Contributions are more than welcome! If anyone is interested, please <a
+                    href="https://github.com/SacDeNoeuds/generate-jsdoc-example-tests/blob/main/CONTRIBUTING.md"
+                    target="_blank" rel="noopener noreferrer">do get in touch</a> 😊 (I rarely bite).
+            </p>
+        </blockquote>
 
         <hr>
 
         <section>
             <h2>What can you document with that ?</h2>
             <p>
+                Any developer-oriented documentation, really:
             <ul>
-                <li>Libraries – in conjunction with <a href="https://tsdoc.org/" target="_blank"
+                <li>Libraries, internal or external – in conjunction with <a href="https://tsdoc.org/" target="_blank"
                         rel="noopener noreferrer">TSDoc</a> or <a href="https://typedoc.org/" target="_blank"
                         rel="noopener noreferrer">TypeDoc</a> for instance.</li>
-                <li>Small project domain code.</li>
+                <li>APIs of your product’s domain, for other domains to consume.</li>
             </ul>
             </p>
 
             <p>For now it supports functions, methods, interfaces/types & constants.</p>
-            <p>It's still an embryo and contributions are more than welcome ! If anyone is interested, please <a
-                    href="https://github.com/SacDeNoeuds/generate-jsdoc-example-tests/blob/main/CONTRIBUTING.md"
-                    target="_blank" rel="noopener noreferrer">do get in touch</a> 😊 (I rarely bite).
-            </p>
             <p><b>Bonus</b>: if you have a prettier config, it uses it to format the generated test files.</p>
 
             <blockquote class="alert info">
-                <h4>Information</h4>
+                <h4>Test-Runner Agnostic</h4>
                 <p>
-                    By design, the generated tests are test-runner agnostic: to adapt to your test runner, you can
-                    override the test function and add imports using the <code>headers</code> options.
+                    To adapt the generated test files to your test runner, you can
+                    override the test function and add imports using options – see <a
+                        href="https://github.com/SacDeNoeuds/generate-jsdoc-example-tests?tab=readme-ov-file#usage">usage</a>
+                    and the <a
+                        href="https://github.com/SacDeNoeuds/generate-jsdoc-example-tests?tab=readme-ov-file#vitest">Vitest
+                        example</a>.
                 </p>
+                <h4>Why</h4>
+                <p>I’d rather integrate with test runners to benefit from goodies like coverage and reports rather
+                    than building my own micro test runner.</p>
             </blockquote>
         </section>
 
@@ -108,7 +121,7 @@ test('Example 1', () => {
             <p>
                 I git-ignore the generated test files, and generate my test files in the CI right before executing the
                 tests
-                (and after my lint !).
+                (and after my lint!).
             </p>
             <p>
                 I added an NPM script both for the CI and because I still use the commands locally for debugging

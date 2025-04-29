@@ -2,7 +2,7 @@
 
 First of all, thank you deeply if you want to participate.
 
-FYI I am employed in a company and my time being limited, I will focus on support rather than proposing new features.
+FYI I am employed in a company and my time is limited.
 
 I have a few features in mind which anyone can implement (see [#on my radar](#on-my-radar-when-i-have-time)).
 If you have feature requests, please get in touch and let’s see what we can do about it.

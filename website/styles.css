@@ -85,13 +85,8 @@ pre {
 }
 
 .alert {
-  border-radius: var(--radius);
-  /* light blue: */
-  /* background: linear-gradient(0deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 255, 0.1)), var(--color-background); */
-  /* use a function to make --blue more transparent: */
-  background: var(--light-blue);
-  padding: 1rem;
-  /* dark blue */
+  border-inline-start: 4px solid var(--dark-blue);
+  padding: 0.25rem 1rem;
   color: var(--dark-blue);
   display: flex;
   flex-direction: column;
@@ -104,4 +99,13 @@ hr {
   background: var(--color-text);
   block-size: 0.125rem;
   inline-size: 100%;
+}
+
+code {
+  display: inline-block;
+  margin: 0;
+  padding: 0.125rem 0.5rem;
+  background: var(--color-text);
+  color: var(--color-background);
+  border-radius: var(--radius);
 }
