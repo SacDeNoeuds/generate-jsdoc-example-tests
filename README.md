@@ -254,7 +254,7 @@ generateTests('./src/**', {
   headers: ['import { it, expect } from "vitest"'],
 
   // keywords the JSDoc @example body must contain to be included in the generated tests.
-  includeExampleContaining: ['expect'], // default is ['assert', 'expect']
+  includeExampleContaining: ['expect('], // default is ['assert.', 'assert(', 'expect']
 })
   .then(() => console.info('tests generated'))
   .catch(console.error)
@@ -264,8 +264,8 @@ generateTests('./src/**', {
 
 ### Which tests are included ?
 
-There is a `includeExampleContaining` option, defaulted to `['expect', 'assert']`.
-Any `@example` content containing `expect` or `assert` will have a generated test.
+There is a `includeExampleContaining` option, defaulted to `['expect(', 'assert.', 'assert(']`.
+Any `@example` content containing `expect(`, `assert.` or `assert(` will have a generated test.
 
 If you want to omit a test, you can omit it with `@skipTest`:
 ```ts

@@ -172,7 +172,7 @@ export function test2() {
     foundComments[1].compilerNode,
     source,
     docNode,
-    { includeExampleContaining: ["assert"] },
+    { includeExampleContaining: ["assert."] },
   )
   assert.equal(
     examples[0].code,
@@ -208,7 +208,7 @@ export function test() {
     foundComments[0].compilerNode,
     source,
     docNode,
-    { includeExampleContaining: ["assert"] },
+    { includeExampleContaining: ["assert."] },
   )
   assert.equal(examples[0].name, "customtagTest")
   assert.equal(
@@ -247,7 +247,7 @@ export function test() {
     foundComments[0].compilerNode,
     source,
     docNode,
-    { includeExampleContaining: ["assert"] },
+    { includeExampleContaining: ["assert."] },
   )
 
   assert.equal(examples.length, 0)

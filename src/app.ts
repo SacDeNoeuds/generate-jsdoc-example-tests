@@ -29,7 +29,7 @@ const defaultOptions: GenerateOptions = {
   testFunctionName: "test",
   testFileExtension: ".example.test",
   headers: [],
-  includeExampleContaining: ['assert', 'expect']
+  includeExampleContaining: ['assert.', 'assert(', 'expect(']
 }
 
 /**
@@ -48,9 +48,9 @@ const defaultOptions: GenerateOptions = {
  *
  * generate("./src/**", {
  *   testFunctionName: 'it',
- *   header: 'import { it, expect } from "vitest"',
+ *   headers: ['import { it, expect } from "vitest"'],
  *   testFileExtension: '.generated.test',
- *   includeExampleContaining: ['expect'],
+ *   includeExampleContaining: ['expect('],
  * })
  *   .then(() => console.info('tests generated'))
  *   .catch(console.error)

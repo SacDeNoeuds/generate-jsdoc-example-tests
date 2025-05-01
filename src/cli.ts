@@ -33,7 +33,7 @@ cli
   .option(
     "--include-example-containing <strings>",
     'Only generate test files for examples including one of the given strings',
-    { type: [String], default: ['assert', 'expect'] }
+    { type: [String], default: ['assert.', 'assert(', 'expect('] }
   )
   .action(async (pattern, options) => {
     if (!pattern) {
