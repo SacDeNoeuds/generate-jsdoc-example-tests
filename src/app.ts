@@ -25,7 +25,7 @@ export interface GenerateOptions {
    */
   includeExampleContaining: string[];
 }
-const defaultOptions: GenerateOptions = {
+export const defaultOptions: GenerateOptions = {
   testFunctionName: "test",
   testFileExtension: ".example.test",
   headers: [],

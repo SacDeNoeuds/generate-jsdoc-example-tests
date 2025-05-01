@@ -3,7 +3,7 @@ import { cac } from 'cac'
 import { readFileSync } from 'node:fs'
 import * as path from "node:path"
 import { fileURLToPath } from 'node:url'
-import { generateTests } from "./app.js"
+import { defaultOptions, generateTests } from "./app.js"
 
 const currentFilePath = fileURLToPath(import.meta.url)
 const packageJsonPath = path.resolve(path.dirname(currentFilePath), '../package.json')
@@ -18,22 +18,22 @@ cli
   .option(
     '--test-function-name [name]',
     'Name of test function (default: "test")',
-    { default: 'test' }
+    { default: defaultOptions.testFunctionName }
   )
   .option(
     '--test-file-extension [ext]',
     'Test file extension (default: ".example.test")',
-    { default: '.example.test' }
+    { default: defaultOptions.testFileExtension }
   )
   .option(
     '--header [texts]',
     'Header texts to include in test files, ie: --header \'import { test } from "vitest"\' --header \'import …\'',
-    { type: [String], default: [] }
+    { type: [String], default: defaultOptions.headers }
   )
   .option(
     "--include-example-containing <strings>",
     'Only generate test files for examples including one of the given strings',
-    { type: [String], default: ['assert.', 'assert(', 'expect('] }
+    { type: [String], default: defaultOptions.includeExampleContaining }
   )
   .action(async (pattern, options) => {
     if (!pattern) {
