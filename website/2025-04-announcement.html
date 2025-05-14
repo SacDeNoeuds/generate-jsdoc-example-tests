@@ -67,9 +67,10 @@
  */
 export function formatDateYear(date: Date): string {…}</code></pre>
             <p>2. Generate the test using <code>npx gen-jet</code></p>
-            <pre><code class="language-bash">npx gen-jet 'src/**' \
+            <pre><code class="language-bash">npx gen-jet ./src \
     --header 'import { expect, test } from "vitest"' \
-    --test-file-extension '.example.test' # do not provide the `.ts` or `.js`</code></pre>
+    --test-file-extension '.example.test' # do not provide the `.ts` or `.js`
+    # --watch              enables watch mode</code></pre>
 
             <p>3. The generated test:</p>
             <pre><code class="language-typescript">// src/date-formatter.example.test.ts
