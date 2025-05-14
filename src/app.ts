@@ -1,4 +1,7 @@
-import { glob, readFile, writeFile } from 'node:fs/promises'
+// FIXME: in 2028, import `glob` from 'node:fs/promises' (introduced in v22)
+// in the meantime, to support more node runtimes, let’s use the glob package.
+import { glob } from 'glob'
+import { readFile, writeFile } from 'node:fs/promises'
 import * as path from "node:path"
 import * as ts from "typescript"
 import { wrapTestFunction } from "./funcwrapper.js"
@@ -58,7 +61,7 @@ export const defaultOptions: GenerateOptions = {
  */
 export async function generateTests(pattern, providedOptions?: Partial<GenerateOptions>) {
   const options = { ...defaultOptions, ...providedOptions }
-  for await (const fileName of glob(pattern)) {
+  for (const fileName of await glob(pattern)) {
     if (fileName.includes(options.testFileExtension)) continue
     await generateTestFile(fileName, options)
   }

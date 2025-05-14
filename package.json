@@ -35,7 +35,6 @@
     "debug": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js './examples/*'"
   },
   "devDependencies": {
-    "@types/glob": "^8.1.0",
     "@types/node": "^22.15.2",
     "@types/prettier": "^3.0.0",
     "tsx": "^4.19.3",
@@ -44,6 +43,7 @@
   "dependencies": {
     "@microsoft/tsdoc": "^0.15.1",
     "cac": "^6.7.14",
+    "glob": "^11.0.2",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   }
