@@ -30,15 +30,14 @@
     "test": "vitest src/__tests__",
     "build": "npm run clean && tsc",
     "prepack": "npm run build",
-    "postbuild": "rimraf ./lib/__tests__",
-    "clean": "rimraf ./lib/*",
+    "postbuild": "rm -rf ./lib/__tests__",
+    "clean": "rm -rf ./lib/*",
     "debug": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js './examples/*'"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/node": "^22.15.2",
     "@types/prettier": "^3.0.0",
-    "rimraf": "^6.0.1",
     "tsx": "^4.19.3",
     "vitest": "^3.1.2"
   },
