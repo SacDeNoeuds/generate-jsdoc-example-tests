@@ -13,8 +13,8 @@ const cli = cac('gen-jet')
 
 cli
   .version(pkg.version)
-  .command('[pattern]', 'Generate tests from JSDoc @example')
-  .usage("npx gen-jet './src/**'")
+  .command('[root directories (comma-separated)]', 'Generate tests from JSDoc @example')
+  .usage("npx gen-jet src/,other-root/")
   .option(
     '--test-function-name [name]',
     'Name of test function (default: "test")',
@@ -28,26 +28,35 @@ cli
   .option(
     '--header [texts]',
     'Header texts to include in test files, ie: --header \'import { test } from "vitest"\' --header \'import …\'',
-    { type: [String], default: defaultOptions.headers }
+    { type: [], default: defaultOptions.headers }
   )
   .option(
     "--include-example-containing <strings>",
     'Only generate test files for examples including one of the given strings',
-    { type: [String], default: defaultOptions.includeExampleContaining }
+    { type: [], default: defaultOptions.includeExampleContaining }
   )
-  .action(async (pattern, options) => {
-    if (!pattern) {
-      console.error('Error: Missing required glob pattern')
+  
+  .option('--watch', 'Enable watch mode', {
+    // @ts-ignore cac is badly typed, `type` does accept `Boolean`
+    type: Boolean,
+    default: defaultOptions.watch
+  })
+  .action(async (directoryInput, options) => {
+    const rootDirectories = directoryInput?.split(',').filter(Boolean) ?? []
+    if (rootDirectories.length === 0) {
       cli.outputHelp()
+      console.info('\n')
+      console.error('Error: Missing required root directories, see usage upper\n')
       process.exit(1)
     }
     console.debug('Generating tests from JSDoc @example')
     try {
-      await generateTests(pattern, {
+      await generateTests(rootDirectories, {
         headers: options.header,
         includeExampleContaining: options.includeExampleContaining,
         testFileExtension: options.testFileExtension,
-        testFunctionName: options.testFunctionName
+        testFunctionName: options.testFunctionName,
+        watch: options.watch,
       })
     } catch (error) {
       console.error(error)

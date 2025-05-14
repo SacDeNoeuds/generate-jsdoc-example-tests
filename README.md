@@ -208,15 +208,17 @@ test('Example 1', () => {
 `gen-jet`: gen = **gen**erate ; jet = **J**sdoc + **E**xample + **T**ests.
 
 ```sh
-$ npx gen-jet 'src/**'
+$ npx gen-jet src/
+$ npx gen-jet src/,other-root/
 
 # Usage with options:
-$ npx gen-jet 'src/**' \
+$ npx gen-jet src/ \
   --test-file-extension '.example.test' \
   --test-function-name 'it' \
   --header 'import { it, expect } from "vitest | jest | whatever"'
   --header 'import { myGlobalImport } from "~/some-global-stuff"'
   --include-example-containing expect,assert,assertStrict
+  --watch
 
 # For a full CLI usage, checkout
 $ gen-jet --help
@@ -227,13 +229,13 @@ $ gen-jet --help
 ```ts
 import { generateTests, type GenerateOptions } from 'generate-jsdoc-example-tests'
 
-generateTests('./src/**')
+generateTests(['./src', './other-root'])  // the folders are resolved from process cwd.
   .then(() => console.info('tests generated'))
   .catch(console.error)
 
 const myOptions: GenerateOptions = { … }
 
-generateTests('./src/**', myOptions)
+generateTests(['./src',], myOptions)
   .then(() => console.info('tests generated'))
   .catch(console.error)
 
@@ -244,17 +246,18 @@ generateTests('./src/**', myOptions)
 ```ts
 import { generateTests } from 'generate-jsdoc-example-tests'
 
-generateTests('./src/**')
+generateTests(['./src', './other-root'])  // the folders are resolved from process cwd.
   .then(() => console.info('tests generated'))
   .catch(console.error)
 
-generateTests('./src/**', {
-  testFileExtension: '.generated.test', // default is '.example.test' ; do not provide `.ts` or `.js` !
+generateTests('./src', {
+  testFileExtension: '.generated.test', // default is '.example.test' ; do not provide `.ts` or `.js`
   testFunctionName: 'it', // default is 'test'
   headers: ['import { it, expect } from "vitest"'],
 
   // keywords the JSDoc @example body must contain to be included in the generated tests.
   includeExampleContaining: ['expect('], // default is ['assert.', 'assert(', 'expect']
+  watch: false, // <-- enable watch mode here.
 })
   .then(() => console.info('tests generated'))
   .catch(console.error)
@@ -341,6 +344,6 @@ Please visit the [contributing](./CONTRIBUTING.md) section for a detailed guide 
 
 > If you like the project but don't have time to contribute, all good ! There are other ways to support the project and show your appreciation, which we would also be very happy about:
 > - Star the project
-> - Tweet about it
+> - Tweet (Bsky) about it
 > - Refer this project in your project’s readme
 > - Mention the project at local meetups and tell your friends/colleagues

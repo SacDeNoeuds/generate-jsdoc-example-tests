@@ -1,6 +1,6 @@
 // FIXME: in 2028, import `glob` from 'node:fs/promises' (introduced in v22)
 // in the meantime, to support more node runtimes, let’s use the glob package.
-import { glob } from 'glob'
+import { watch } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import * as path from "node:path"
 import * as ts from "typescript"
@@ -8,6 +8,7 @@ import { wrapTestFunction } from "./funcwrapper.js"
 import { mergeImports, splitImport } from "./import.js"
 import { collectExampleCodes, extractComments, parseTSDoc } from "./parser.js"
 import { print } from "./printer.js"
+import { readDirectories } from './read-directories.js'
 
 export interface GenerateOptions {
   /** @default "test" */
@@ -27,12 +28,18 @@ export interface GenerateOptions {
    * @default ['assert', 'expect']
    */
   includeExampleContaining: string[];
+  /**
+   * Enable watch mode
+   * @default false
+   */
+  watch: boolean
 }
 export const defaultOptions: GenerateOptions = {
   testFunctionName: "test",
   testFileExtension: ".example.test",
   headers: [],
-  includeExampleContaining: ['assert.', 'assert(', 'expect(']
+  includeExampleContaining: ['assert.', 'assert(', 'expect('],
+  watch: false,
 }
 
 /**
@@ -59,14 +66,27 @@ export const defaultOptions: GenerateOptions = {
  *   .catch(console.error)
  * ```
  */
-export async function generateTests(pattern, providedOptions?: Partial<GenerateOptions>) {
+export async function generateTests(rootDirectories: string[], providedOptions?: Partial<GenerateOptions>) {
   const options = { ...defaultOptions, ...providedOptions }
-  for (const fileName of await glob(pattern)) {
+  const allFiles = readDirectories(rootDirectories, { ignorePatterns: [options.testFileExtension] })
+  for (const fileName of allFiles) {
     if (fileName.includes(options.testFileExtension)) continue
     await generateTestFile(fileName, options)
   }
-}
+  if (!options.watch) return
+  
+  const directories = rootDirectories.map((dir) => path.resolve(process.cwd(), dir))
+  console.info('\n\nwatching changes in directories:\n-', directories.join('\n- '), '\n')
 
+  const watchModeOptions = { ...options, watch: false }
+  for (const directory of directories) {
+    watch(directory, { recursive: true }, (_eventType, fileName) => {
+      if (fileName.includes(options.testFileExtension)) return;
+      console.info('change detected in', directory, 're-generating tests…')
+      void generateTests([directory], watchModeOptions)
+    })
+  }
+}
 
 async function generateTestFile(
   filePath: string,
