@@ -187,8 +187,7 @@ test("customTags", () => {
     src: `/**
  * Test function
  *
- * @example
- * {@exampleName customtagTest}
+ * @example customtagTest
  * \`\`\`ts
  * import { test1 } from "test-mod"
  * assert.equal(test(), true)

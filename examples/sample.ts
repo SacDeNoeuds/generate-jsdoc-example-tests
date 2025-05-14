@@ -16,8 +16,7 @@ export function sum(a: number, b: number) {
  * @remarks
  * demo
  *
- * @example
- * {@exampleName custom name here}
+ * @example custom name here
  *
  * ```
  * import * as assert from "assert";
@@ -44,8 +43,7 @@ export function sub(a: number, b: number) {
  */
 export class Duck {
   /**
-   * @example
-   * {@exampleName class method example}
+   * @example class method example
    *
    * ```
    * import * as assert from "assert";

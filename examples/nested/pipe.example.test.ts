@@ -2,10 +2,10 @@
 import * as assert from 'assert'
 import { pipe } from './pipe'
 
-test('Example 1', () => {
+test('Test 1', () => {
   assert.equal(pipe('1', '2', '3'), undefined)
 })
 
-test('Example 2', () => {
+test('Test 2', () => {
   assert.equal(pipe('1'), undefined)
 })

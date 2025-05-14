@@ -13,8 +13,7 @@
  * assert.equal(sum(2, 1), 3);
  * ```
  *
- * @example
- * {@exampleName customTag}
+ * @example customTag
  * ```
  * import * as assert from "assert";
  * import { sum } from "./sample";
@@ -35,7 +34,7 @@ export function sum(a, b) {
  * @remarks
  * demo
  *
- * @example {@exampleName custom name here}
+ * @example custom name here
  *
  * ```
  * import * as assert from "assert";
@@ -64,8 +63,7 @@ export function sub(a, b) {
  */
 export class Duck {
   /**
-   * @example
-   * {@exampleName class method example}
+   * @example class method example
    *
    * ```
    * import * as assert from "assert";

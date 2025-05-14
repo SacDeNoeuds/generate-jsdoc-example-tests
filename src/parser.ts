@@ -95,17 +95,13 @@ function getJSDocCommentRanges(node: ts.Node, text: string): ts.CommentRange[] {
 }
 
 export function parseTSDoc(comment: IFoundComment): tsdoc.DocComment {
-  const exampleName = new tsdoc.TSDocTagDefinition({
-    tagName: "@exampleName",
-    syntaxKind: tsdoc.TSDocTagSyntaxKind.InlineTag,
-  })
   const ignoreCase = new tsdoc.TSDocTagDefinition({
     tagName: "@skipTest",
     syntaxKind: tsdoc.TSDocTagSyntaxKind.InlineTag,
   })
 
   const config = new tsdoc.TSDocConfiguration()
-  config.addTagDefinitions([exampleName, ignoreCase])
+  config.addTagDefinitions([ignoreCase])
 
   const tsdocParser: tsdoc.TSDocParser = new tsdoc.TSDocParser(config)
 
