@@ -181,9 +181,10 @@ async function generateTestFile(
   if (options.headers.length > 0) options.headers.push('') // add empty line.
   const header = [banner, ...options.headers].join("\n")
   const printed = await print(ast, options)
+  const result = `${header}\n${printed}`
 
   await writeFile(
     `${dir}/${name}${options.testFileExtension}${ext}`,
-    `${header}\n${printed}`,
+    result,
   )
 }

@@ -299,11 +299,12 @@ The test files are generated according to their source file:
 
 ### I want to name my examples
 
-Use the `@exampleName` inline tag:
+Your examples are named by default if you provide a title:
 
 ```ts
 /**
- * @example {@exampleName sum 4 and 5}
+ *          ⬇️ example title
+ * @example sum 4 and 5
  * ```
  * import assert from "assert";
  * import { sum } from "./sample";

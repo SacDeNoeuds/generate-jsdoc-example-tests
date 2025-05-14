@@ -23,8 +23,7 @@ export async function print(
     .replaceAll(
       `\n${options.testFunctionName}(`,
       `\n\n${options.testFunctionName}(`,
-    )
-    .replaceAll(/\n{3,}/g, '\n\n');
+    );
 
   const prettierConfig = await resolvePrettierConfig();
   const formatted = await prettier.format(result, {

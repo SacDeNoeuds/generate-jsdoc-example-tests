@@ -133,15 +133,24 @@ export function collectExampleCodes(
       return
     }
 
-    let name: string = ""
+    let name = ""
     let skip = false
+    kindFilter(node, tsdoc.DocNodeKind.Paragraph, (paragraphNode) => {
+      kindFilter(paragraphNode, tsdoc.DocNodeKind.Excerpt, (node) => {
+        name += node.content.toString()
+        return true;
+      })
+      return true
+    })
+    name = name
+      .trim() // some examples start with trailing spaces
+      .split('\n')[0] // I only care about the first row
+      .replace(/'/g, "\\'") // escape single quotes
+
     kindFilter(node, tsdoc.DocNodeKind.InlineTag, (inlineNode) => {
       if (inlineNode.tagNameWithUpperCase === "@SKIPTEST") {
         skip = true
         return false
-      }
-      if (inlineNode.tagNameWithUpperCase === "@EXAMPLENAME") {
-        name = inlineNode.tagContent
       }
       return true
     })
