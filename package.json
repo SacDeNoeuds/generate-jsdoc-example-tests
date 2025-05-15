@@ -1,6 +1,6 @@
 {
   "name": "generate-jsdoc-example-tests",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "./lib/app.js",
   "types": "./lib/app.d.ts",
   "type": "module",
