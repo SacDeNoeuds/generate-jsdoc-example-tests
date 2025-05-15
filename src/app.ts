@@ -75,14 +75,14 @@ export async function generateTests(rootDirectories: string[], providedOptions?:
   }
   if (!options.watch) return
   
-  const directories = rootDirectories.map((dir) => path.resolve(process.cwd(), dir))
+  const directories = rootDirectories.map((dir) => `./${path.relative(process.cwd(), dir)}`)
   console.info('\n\nwatching changes in directories:\n-', directories.join('\n- '), '\n')
 
   const watchModeOptions = { ...options, watch: false }
   for (const directory of directories) {
     watch(directory, { recursive: true }, (_eventType, fileName) => {
       if (fileName.includes(options.testFileExtension)) return;
-      console.info('change detected in', directory, 're-generating tests…')
+      console.info(`change detected in \`${directory}\`, re-generating tests…`)
       void generateTests([directory], watchModeOptions)
     })
   }
