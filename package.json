@@ -35,7 +35,7 @@
     "debug": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js ./examples"
   },
   "devDependencies": {
-    "@types/node": "^24.2.1",
+    "@types/node": "^24.3.0",
     "@types/prettier": "^3.0.0",
     "tsx": "^4.20.3",
     "vitest": "^3.2.4"
