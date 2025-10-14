@@ -39,6 +39,15 @@ export function sub(a: number, b: number) {
 }
 
 /**
+ * Sub prop is 12
+ * @example sub prop is 12
+ * ```ts
+ * assert.equal(sub.prop, 12)
+ * ```
+ */
+sub.prop = 12
+
+/**
  * duck class
  */
 export class Duck {

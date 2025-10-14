@@ -151,6 +151,7 @@ export function isDeclarationKind(kind: ts.SyntaxKind) {
     kind === ts.SyntaxKind.NamespaceImport ||
     kind === ts.SyntaxKind.Parameter ||
     kind === ts.SyntaxKind.PropertyAssignment ||
+    kind === ts.SyntaxKind.PropertyAccessExpression ||
     kind === ts.SyntaxKind.PropertyDeclaration ||
     kind === ts.SyntaxKind.PropertySignature ||
     kind === ts.SyntaxKind.SetAccessor ||

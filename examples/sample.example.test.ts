@@ -14,6 +14,10 @@ test('Example 2', () => {
   assert.equal(sub(4, 5), -1)
 })
 
+test('sub prop is 12', () => {
+  assert.equal(sub.prop, 12)
+})
+
 test('class method example', () => {
   const duck = new Duck()
   assert.equal(duck.quack(), 'quack')

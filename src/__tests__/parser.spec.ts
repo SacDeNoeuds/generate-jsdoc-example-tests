@@ -129,6 +129,28 @@ export function test() {
   )
 })
 
+test("extract function property JSDoc", () => {
+  const source = createVirtualSource({
+    src: `
+export function test() {}
+/**
+ * fn prop
+ */
+test.prop = 12
+    `,
+    fileName: "virtual.ts",
+  })
+
+  const foundComments = extractComments(source)
+  const docNode = parseTSDoc(foundComments[0])
+  const paragraph =
+    docNode.summarySection.getChildNodes()[0] as tsdoc.DocParamCollection
+  assert.equal(
+    (paragraph.getChildNodes()[0] as tsdoc.DocPlainText).text,
+    "fn prop",
+  )
+})
+
 test("collectExampleCodes", () => {
   const source = createVirtualSource({
     src: `/**
