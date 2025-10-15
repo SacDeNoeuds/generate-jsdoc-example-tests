@@ -29,6 +29,10 @@
     --color-text: var(--dark-white);
     --dark-blue: rgb(145, 145, 219);
   }
+
+  .github-logo {
+    filter: brightness(6);
+  }
 }
 
 body,
