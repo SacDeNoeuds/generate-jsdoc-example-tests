@@ -130,13 +130,33 @@ test('Example 1', () => {
             <h2>How I use it in my projects</h2>
 
             <p>
-                I git-ignore the generated test files, and generate my test files in the CI right before executing the
-                tests
-                (and after my lint!).
+                I used it to implement yet-another schema library called <a href="https://sacdenoeuds.github.io/unhoax/"
+                    target="_blank" rel="noreferrer noopener">unhoax</a> – a type-driven one, you can check it out.<br>
+                I managed to reach >99% of coverage just by using example tests. Bonus: The examples are re-used to
+                generate the full reference.
             </p>
+
+            <h3>Project setup</h3>
+            <ul>
+                <li>NPM script to generate test files</li>
+                <li>NPM script to remove generated test files</li>
+                <li>git-ignore the generated test files</li>
+            </ul>
             <p>
-                I added an NPM script both for the CI and because I still use the commands locally for debugging
-                purposes.
+                Sources files:
+                <a href="https://github.com/SacDeNoeuds/unhoax/blob/main/package.json" target="_blank"
+                    rel="noreferrer noopener">package.json</a> |
+                <a href="https://github.com/SacDeNoeuds/unhoax/blob/main/.gitignore" target="_blank"
+                    rel="noreferrer noopener">.gitignore</a>
+            </p>
+
+            <h3>In the CI</h3>
+            <p>
+                Generate test files <i>after</i> linting, type checking, … and <i>before</i> running the tests.<br>
+                That way, I could benefit from my test runner’s coverage capabilities and generate the coverage badge.
+                <br><br>
+                Sources file: <a href="https://github.com/SacDeNoeuds/unhoax/blob/main/.github/workflows/coverage.yml"
+                    target="_blank" rel="noreferrer noopener">.github/workflows/coverage.yml</a>
             </p>
         </section>
     </main>

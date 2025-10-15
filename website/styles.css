@@ -18,11 +18,16 @@
   --color-text: var(--dark-grey);
 }
 
+:root {
+  color-scheme: light dark;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     /* dark theme */
     --color-background: var(--dark-grey);
     --color-text: var(--dark-white);
+    --dark-blue: rgb(145, 145, 219);
   }
 }
 
