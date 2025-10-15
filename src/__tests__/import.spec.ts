@@ -107,3 +107,18 @@ import { createIdentifier, Node } from 'typescript'
 `
   });
 });
+
+test("default imports + named + default + declaration imports", async () => {
+  await mergeImportsRunner({
+    src: `import * as ts from "typescript";
+import { createIdentifier, Node } from "typescript";
+import fs from "fs";
+import "./some-side-effect";
+`,
+    expect: `import * as ts from 'typescript'
+import { createIdentifier, Node } from 'typescript'
+import fs from 'fs'
+import './some-side-effect'
+`
+  });
+});

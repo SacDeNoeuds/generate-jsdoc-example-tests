@@ -24,30 +24,35 @@ function unique<T>(arr: Array<T>): Array<T> {
 export function mergeImports(imports: ts.ImportDeclaration[]): ts.Node[] {
   const reduced = imports.reduce(
     (acc, i) => {
-      if (ts.isNamedImports(i.importClause.namedBindings)) {
-        const moduleSpecifier = (i?.moduleSpecifier as ts.StringLiteral)?.text;
-        if (!moduleSpecifier) {
-          return acc;
-        }
-        if (!acc.namedImports[moduleSpecifier]) {
-          acc.namedImports[moduleSpecifier] = [];
-        }
+      const moduleSpecifier = (i?.moduleSpecifier as ts.StringLiteral)?.text;
+      if (!moduleSpecifier) return acc;
+
+      const isImportDeclaration = !i.importClause
+      if (isImportDeclaration) {
+        acc.importDeclarations[moduleSpecifier] ??= []
+        acc.importDeclarations[moduleSpecifier].push(i)
+        return acc
+      }
+
+      // If the import clause has a name, it is a default import
+      // ie: `import theName from '…'`
+      const isDefaultImport = !!i.importClause.name
+      if (isDefaultImport) {
+        // acc.defaultImports[moduleSpecifier] ??= i;
+        acc.namedImports[moduleSpecifier] ??= []
+        acc.namedImports[moduleSpecifier].push(i)
+      }
+      if (i.importClause.namedBindings && ts.isNamedImports(i.importClause.namedBindings)) {
+        acc.namedImports[moduleSpecifier] ??= [];
         acc.namedImports[moduleSpecifier].push(i);
-        return acc;
       }
-      if (ts.isNamespaceImport(i.importClause.namedBindings)) {
-        const moduleSpecifier = (i?.moduleSpecifier as ts.StringLiteral)?.text;
-        if (!moduleSpecifier) {
-          return acc;
-        }
-        if (!acc.namespaceImports[moduleSpecifier]) {
-          acc.namespaceImports[moduleSpecifier] = [];
-        }
+      if (i.importClause.namedBindings && ts.isNamespaceImport(i.importClause.namedBindings)) {
+        acc.namespaceImports[moduleSpecifier] ??= [];
         acc.namespaceImports[moduleSpecifier].push(i);
-        return acc;
       }
+      return acc;
     },
-    { namedImports: {}, namespaceImports: {} }
+    { namedImports: {}, namespaceImports: {}, importDeclarations: {} }
   );
 
   const namespaceImports = Object.values(reduced.namespaceImports).map(
@@ -107,5 +112,13 @@ export function mergeImports(imports: ts.ImportDeclaration[]): ts.Node[] {
     }
   );
 
-  return [...namespaceImports, ...namedImports];
+  const importDeclarations = Object.values(reduced.importDeclarations).map((i: ts.ImportDeclaration[]) => {
+    return ts.factory.createImportDeclaration(
+        undefined, // modifiers (like 'declare' modifier)
+        undefined, // no import clause, it is a `import 'some-module'` declaration
+        i[0].moduleSpecifier,
+      )
+  })
+
+  return [...namespaceImports, ...namedImports, ...importDeclarations];
 }

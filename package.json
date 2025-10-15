@@ -32,7 +32,7 @@
     "prepack": "npm run build",
     "postbuild": "rm -rf ./lib/__tests__",
     "clean": "rm -rf ./lib/*",
-    "debug": "npm run build && chmod +x ./lib/cli.js && ./lib/cli.js ./examples"
+    "debug": "npx tsx ./src/cli.ts ./examples"
   },
   "devDependencies": {
     "@types/node": "^24.7.2",

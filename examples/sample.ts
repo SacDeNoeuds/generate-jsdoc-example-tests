@@ -29,6 +29,9 @@ export function sum(a: number, b: number) {
  *
  * ```
  * import * as assert from "assert";
+ * import fs from "node:fs";
+ * import path, { resolve } from "node:path";
+ * import './side-effects'
  * import { sub } from "./sample";
  *
  * assert.equal(sub(4, 5), -1);
