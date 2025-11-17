@@ -35,7 +35,7 @@
     "debug": "npx tsx ./src/cli.ts ./examples"
   },
   "devDependencies": {
-    "@types/node": "^24.7.2",
+    "@types/node": "^24.10.1",
     "@types/prettier": "^3.0.0",
     "tsx": "^4.20.6",
     "vitest": "^3.2.4"
